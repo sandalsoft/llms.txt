@@ -1263,6 +1263,14 @@ components:
         type: string
         example: "0000320193"
 
+    fmp_apikey:
+      name: fmp_apikey
+      in: query
+      description: API key for Financial Modeling Prep API
+      required: true
+      schema:
+        type: string
+
   responses:
     UnauthorizedError:
       description: Unauthorized - Invalid API Key
@@ -1301,6 +1309,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Company profile successfully retrieved
@@ -1334,6 +1343,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Income statements successfully retrieved
@@ -1367,6 +1377,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Balance sheet statements successfully retrieved
@@ -1400,6 +1411,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Cash flow statements successfully retrieved
@@ -1431,6 +1443,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Stock quote successfully retrieved
@@ -1462,6 +1475,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Simplified stock quote successfully retrieved
@@ -1496,6 +1510,8 @@ paths:
       summary: Get list of available stocks
       description: Returns a list of available stocks with basic information
       operationId: getStocksList
+      parameters:
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: List of stocks successfully retrieved
@@ -1578,6 +1594,7 @@ paths:
             type: string
             enum: ["line", "candlestick"]
             default: "line"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Historical prices successfully retrieved
@@ -1615,6 +1632,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Stock price change information successfully retrieved
@@ -1703,6 +1721,7 @@ paths:
             type: string
             format: date
             example: "2023-12-31"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Earnings calendar successfully retrieved
@@ -1724,6 +1743,8 @@ paths:
       summary: Get sectors performance
       description: Returns performance data for market sectors
       operationId: getSectorsPerformance
+      parameters:
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Sectors performance successfully retrieved
@@ -1753,6 +1774,8 @@ paths:
       summary: Get major market indices
       description: Returns prices for major market indices
       operationId: getMarketIndices
+      parameters:
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Market indices successfully retrieved
@@ -1774,6 +1797,8 @@ paths:
       summary: Get Forex (FX) rates
       description: Returns real-time Forex quotes
       operationId: getFxRates
+      parameters:
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Forex rates successfully retrieved
@@ -1803,6 +1828,7 @@ paths:
           schema:
             type: string
             example: "EURUSD"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Forex pair rate successfully retrieved
@@ -1836,6 +1862,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: As Reported Income Statements retrieved
@@ -1865,6 +1892,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: As Reported Balance Sheets retrieved
@@ -1894,6 +1922,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: As Reported Cash Flow Statements retrieved
@@ -1922,6 +1951,7 @@ paths:
             type: string
             example: "AAPL"
         - $ref: "#/components/parameters/period"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Full As Reported Financial Statements retrieved
@@ -1951,6 +1981,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Key metrics retrieved
@@ -1978,7 +2009,8 @@ paths:
           schema:
             type: string
             example: "AAPL"
-        - $ref: "#/components/parameters/limit" # Limit might apply here too
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Key metrics TTM retrieved
@@ -2008,6 +2040,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Financial ratios retrieved
@@ -2035,8 +2068,8 @@ paths:
           schema:
             type: string
             example: "AAPL"
-        # TTM typically doesn't have period, limit might apply
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Financial ratios TTM retrieved
@@ -2066,6 +2099,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Income statement growth retrieved
@@ -2095,6 +2129,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Balance sheet growth retrieved
@@ -2124,6 +2159,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Cash flow statement growth retrieved
@@ -2153,6 +2189,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Financial growth retrieved
@@ -2182,6 +2219,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Enterprise values retrieved
@@ -2203,7 +2241,8 @@ paths:
       description: Returns Altman Z-Score and Piotroski F-Score for a company.
       operationId: getFinancialScore
       parameters:
-        - $ref: "#/components/parameters/symbol" # Assuming symbol is query param for v4
+        - $ref: "#/components/parameters/symbol"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Financial score retrieved
@@ -2224,7 +2263,8 @@ paths:
       description: Returns the owner earnings for a company.
       operationId: getOwnerEarnings
       parameters:
-        - $ref: "#/components/parameters/symbol" # Assuming symbol is query param for v4
+        - $ref: "#/components/parameters/symbol"
+        - $ref: "#/components/parameters/fmp_apikey"
       responses:
         "200":
           description: Owner earnings retrieved
