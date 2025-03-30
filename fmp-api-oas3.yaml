@@ -1,1520 +1,33 @@
 openapi: 3.0.0
 info:
   title: Financial Modeling Prep API
-  description: Financial Modeling Prep provides real-time stock data, financial statements, market analysis, and more.
-  version: 2.0.0
-  contact:
-    email: support@financialmodelingprep.com
-    url: https://financialmodelingprep.com/contact-us
-  license:
-    name: Financial Modeling Prep License
-    url: https://financialmodelingprep.com/terms-of-service
-
+  description: Access real-time stock quotes and financial data
+  version: 1.0.0
 servers:
-  - url: https://financialmodelingprep.com/api
-    description: Production server
-
-components:
-  securitySchemes:
-    apiKey:
-      type: apiKey
-      in: query
-      name: apikey
-      description: API key for authentication
-
-  schemas:
-    CompanyProfile:
-      type: object
-      properties:
-        symbol:
-          type: string
-          example: "AAPL"
-        price:
-          type: number
-          format: float
-          example: 157.35
-        beta:
-          type: number
-          format: float
-          example: 1.25
-        volAvg:
-          type: integer
-          example: 28053624
-        mktCap:
-          type: integer
-          example: 2515866732032
-        lastDiv:
-          type: number
-          format: float
-          example: 0.96
-        range:
-          type: string
-          example: "139.69-164.08"
-        changes:
-          type: number
-          format: float
-          example: -0.85
-        companyName:
-          type: string
-          example: "Apple Inc."
-        currency:
-          type: string
-          example: "USD"
-        cik:
-          type: string
-          example: "0000320193"
-        isin:
-          type: string
-          example: "US0378331005"
-        cusip:
-          type: string
-          example: "037833100"
-        exchange:
-          type: string
-          example: "NASDAQ Global Select"
-        exchangeShortName:
-          type: string
-          example: "NASDAQ"
-        industry:
-          type: string
-          example: "Consumer Electronics"
-        website:
-          type: string
-          example: "https://www.apple.com"
-        description:
-          type: string
-        ceo:
-          type: string
-          example: "Mr. Timothy D. Cook"
-        sector:
-          type: string
-          example: "Technology"
-        country:
-          type: string
-          example: "US"
-        fullTimeEmployees:
-          type: integer
-          example: 161000
-        phone:
-          type: string
-          example: "408 996 1010"
-        address:
-          type: string
-          example: "One Apple Park Way"
-        city:
-          type: string
-          example: "Cupertino"
-        state:
-          type: string
-          example: "CA"
-        zip:
-          type: string
-          example: "95014"
-        dcfDiff:
-          type: number
-          format: float
-        dcf:
-          type: number
-          format: float
-        image:
-          type: string
-          format: uri
-        ipoDate:
-          type: string
-          format: date
-          example: "1980-12-12"
-        defaultImage:
-          type: boolean
-        isEtf:
-          type: boolean
-        isActivelyTrading:
-          type: boolean
-          example: true
-        isAdr:
-          type: boolean
-        isFund:
-          type: boolean
-
-    IncomeStatement:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        symbol:
-          type: string
-        reportedCurrency:
-          type: string
-        cik:
-          type: string
-        fillingDate:
-          type: string
-          format: date
-        acceptedDate:
-          type: string
-          format: date-time
-        calendarYear:
-          type: string
-        period:
-          type: string
-          enum: ["FY", "Q1", "Q2", "Q3", "Q4"]
-        revenue:
-          type: number
-        costOfRevenue:
-          type: number
-        grossProfit:
-          type: number
-        grossProfitRatio:
-          type: number
-        researchAndDevelopmentExpenses:
-          type: number
-        generalAndAdministrativeExpenses:
-          type: number
-        sellingAndMarketingExpenses:
-          type: number
-        sellingGeneralAndAdministrativeExpenses:
-          type: number
-        otherExpenses:
-          type: number
-        operatingExpenses:
-          type: number
-        costAndExpenses:
-          type: number
-        interestIncome:
-          type: number
-        interestExpense:
-          type: number
-        depreciationAndAmortization:
-          type: number
-        ebitda:
-          type: number
-        ebitdaRatio:
-          type: number
-        operatingIncome:
-          type: number
-        operatingIncomeRatio:
-          type: number
-        totalOtherIncomeExpensesNet:
-          type: number
-        incomeBeforeTax:
-          type: number
-        incomeBeforeTaxRatio:
-          type: number
-        incomeTaxExpense:
-          type: number
-        netIncome:
-          type: number
-        netIncomeRatio:
-          type: number
-        eps:
-          type: number
-        epsdiluted:
-          type: number
-        weightedAverageShsOut:
-          type: number
-        weightedAverageShsOutDil:
-          type: number
-        link:
-          type: string
-          format: uri
-        finalLink:
-          type: string
-          format: uri
-
-    BalanceSheet:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        symbol:
-          type: string
-        reportedCurrency:
-          type: string
-        cik:
-          type: string
-        fillingDate:
-          type: string
-          format: date
-        acceptedDate:
-          type: string
-          format: date-time
-        calendarYear:
-          type: string
-        period:
-          type: string
-          enum: ["FY", "Q1", "Q2", "Q3", "Q4"]
-        cashAndCashEquivalents:
-          type: number
-        shortTermInvestments:
-          type: number
-        cashAndShortTermInvestments:
-          type: number
-        netReceivables:
-          type: number
-        inventory:
-          type: number
-        otherCurrentAssets:
-          type: number
-        totalCurrentAssets:
-          type: number
-        propertyPlantEquipmentNet:
-          type: number
-        goodwill:
-          type: number
-        intangibleAssets:
-          type: number
-        goodwillAndIntangibleAssets:
-          type: number
-        longTermInvestments:
-          type: number
-        taxAssets:
-          type: number
-        otherNonCurrentAssets:
-          type: number
-        totalNonCurrentAssets:
-          type: number
-        otherAssets:
-          type: number
-        totalAssets:
-          type: number
-        accountPayables:
-          type: number
-        shortTermDebt:
-          type: number
-        taxPayables:
-          type: number
-        deferredRevenue:
-          type: number
-        otherCurrentLiabilities:
-          type: number
-        totalCurrentLiabilities:
-          type: number
-        longTermDebt:
-          type: number
-        deferredRevenueNonCurrent:
-          type: number
-        deferredTaxLiabilitiesNonCurrent:
-          type: number
-        otherNonCurrentLiabilities:
-          type: number
-        totalNonCurrentLiabilities:
-          type: number
-        otherLiabilities:
-          type: number
-        capitalLeaseObligations:
-          type: number
-        totalLiabilities:
-          type: number
-        preferredStock:
-          type: number
-        commonStock:
-          type: number
-        retainedEarnings:
-          type: number
-        accumulatedOtherComprehensiveIncomeLoss:
-          type: number
-        othertotalStockholdersEquity:
-          type: number
-        totalStockholdersEquity:
-          type: number
-        totalEquity:
-          type: number
-        totalLiabilitiesAndStockholdersEquity:
-          type: number
-        minorityInterest:
-          type: number
-        totalLiabilitiesAndTotalEquity:
-          type: number
-        totalInvestments:
-          type: number
-        totalDebt:
-          type: number
-        netDebt:
-          type: number
-        link:
-          type: string
-          format: uri
-        finalLink:
-          type: string
-          format: uri
-
-    CashFlowStatement:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        symbol:
-          type: string
-        reportedCurrency:
-          type: string
-        cik:
-          type: string
-        fillingDate:
-          type: string
-          format: date
-        acceptedDate:
-          type: string
-          format: date-time
-        calendarYear:
-          type: string
-        period:
-          type: string
-          enum: ["FY", "Q1", "Q2", "Q3", "Q4"]
-        netIncome:
-          type: number
-        depreciationAndAmortization:
-          type: number
-        deferredIncomeTax:
-          type: number
-        stockBasedCompensation:
-          type: number
-        changeInWorkingCapital:
-          type: number
-        accountsReceivables:
-          type: number
-        inventory:
-          type: number
-        accountsPayables:
-          type: number
-        otherWorkingCapital:
-          type: number
-        otherNonCashItems:
-          type: number
-        netCashProvidedByOperatingActivities:
-          type: number
-        investmentsInPropertyPlantAndEquipment:
-          type: number
-        acquisitionsNet:
-          type: number
-        purchasesOfInvestments:
-          type: number
-        salesMaturitiesOfInvestments:
-          type: number
-        otherInvestingActivites:
-          type: number
-        netCashUsedForInvestingActivites:
-          type: number
-        debtRepayment:
-          type: number
-        commonStockIssued:
-          type: number
-        commonStockRepurchased:
-          type: number
-        dividendsPaid:
-          type: number
-        otherFinancingActivites:
-          type: number
-        netCashUsedProvidedByFinancingActivities:
-          type: number
-        effectOfForexChangesOnCash:
-          type: number
-        netChangeInCash:
-          type: number
-        cashAtEndOfPeriod:
-          type: number
-        cashAtBeginningOfPeriod:
-          type: number
-        operatingCashFlow:
-          type: number
-        capitalExpenditure:
-          type: number
-        freeCashFlow:
-          type: number
-        link:
-          type: string
-          format: uri
-        finalLink:
-          type: string
-          format: uri
-
-    StockPrice:
-      type: object
-      properties:
-        symbol:
-          type: string
-          example: "AAPL"
-        name:
-          type: string
-          example: "Apple Inc."
-        price:
-          type: number
-          format: float
-          example: 157.35
-        changesPercentage:
-          type: number
-          format: float
-          example: -0.54
-        change:
-          type: number
-          format: float
-          example: -0.85
-        dayLow:
-          type: number
-          format: float
-          example: 156.53
-        dayHigh:
-          type: number
-          format: float
-          example: 158.49
-        yearHigh:
-          type: number
-          format: float
-          example: 164.08
-        yearLow:
-          type: number
-          format: float
-          example: 139.69
-        marketCap:
-          type: number
-          example: 2515866732032
-        priceAvg50:
-          type: number
-          format: float
-          example: 151.75
-        priceAvg200:
-          type: number
-          format: float
-          example: 147.59
-        volume:
-          type: integer
-          example: 28053624
-        avgVolume:
-          type: integer
-          example: 28907604
-        exchange:
-          type: string
-          example: "NASDAQ"
-        open:
-          type: number
-          format: float
-          example: 158.32
-        previousClose:
-          type: number
-          format: float
-          example: 158.2
-        eps:
-          type: number
-          format: float
-          example: 6.05
-        pe:
-          type: number
-          format: float
-          example: 26.01
-        earningsAnnouncement:
-          type: string
-          format: date-time
-        sharesOutstanding:
-          type: integer
-          example: 15980000000
-        timestamp:
-          type: integer
-
-    MarketIndex:
-      type: object
-      properties:
-        symbol:
-          type: string
-          example: "^DJI"
-        name:
-          type: string
-          example: "Dow Jones Industrial Average"
-        price:
-          type: number
-          format: float
-          example: 33960.36
-        changesPercentage:
-          type: number
-          format: float
-          example: -0.11
-        change:
-          type: number
-          format: float
-          example: -38.29
-        dayLow:
-          type: number
-          format: float
-          example: 33898.22
-        dayHigh:
-          type: number
-          format: float
-          example: 34074.59
-        yearHigh:
-          type: number
-          format: float
-          example: 35091.56
-        yearLow:
-          type: number
-          format: float
-          example: 32071.41
-        marketCap:
-          type: number
-          format: float
-          nullable: true
-        priceAvg50:
-          type: number
-          format: float
-          example: 33716.30
-        priceAvg200:
-          type: number
-          format: float
-          example: 34153.92
-        volume:
-          type: integer
-          example: 327180544
-        avgVolume:
-          type: integer
-          example: 343028505
-        exchange:
-          type: string
-          example: "INDEX"
-        open:
-          type: number
-          format: float
-          example: 33998.46
-        previousClose:
-          type: number
-          format: float
-          example: 33998.65
-        timestamp:
-          type: integer
-
-    HistoricalPrice:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        open:
-          type: number
-          format: float
-        high:
-          type: number
-          format: float
-        low:
-          type: number
-          format: float
-        close:
-          type: number
-          format: float
-        adjClose:
-          type: number
-          format: float
-        volume:
-          type: integer
-        unadjustedVolume:
-          type: integer
-        change:
-          type: number
-          format: float
-        changePercent:
-          type: number
-          format: float
-        vwap:
-          type: number
-          format: float
-        label:
-          type: string
-        changeOverTime:
-          type: number
-          format: float
-
-    EarningsCalendar:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        symbol:
-          type: string
-        eps:
-          type: number
-          format: float
-        epsEstimated:
-          type: number
-          format: float
-        time:
-          type: string
-          enum: ["bmo", "amc", "dmh"]
-        revenue:
-          type: number
-        revenueEstimated:
-          type: number
-
-    ForexQuote:
-      type: object
-      properties:
-        symbol:
-          type: string
-          example: "EURUSD"
-        name:
-          type: string
-          example: "EUR/USD"
-        price:
-          type: number
-          format: float
-          example: 1.0850
-        changesPercentage:
-          type: number
-          format: float
-          example: 0.25
-        change:
-          type: number
-          format: float
-          example: 0.0027
-        dayLow:
-          type: number
-          format: float
-          example: 1.0820
-        dayHigh:
-          type: number
-          format: float
-          example: 1.0875
-        yearHigh:
-          type: number
-          format: float
-          example: 1.1275
-        yearLow:
-          type: number
-          format: float
-          example: 1.0450
-        marketCap:
-          type: number
-          format: float
-          nullable: true
-        priceAvg50:
-          type: number
-          format: float
-          example: 1.0780
-        priceAvg200:
-          type: number
-          format: float
-          example: 1.0950
-        volume:
-          type: integer
-          example: 0
-        avgVolume:
-          type: integer
-          example: 0
-        exchange:
-          type: string
-          example: "FOREX"
-        open:
-          type: number
-          format: float
-          example: 1.0823
-        previousClose:
-          type: number
-          format: float
-          example: 1.0823
-        eps:
-          type: number
-          format: float
-          nullable: true
-        pe:
-          type: number
-          format: float
-          nullable: true
-        earningsAnnouncement:
-          type: string
-          format: date-time
-          nullable: true
-        sharesOutstanding:
-          type: integer
-          nullable: true
-        timestamp:
-          type: integer
-
-    IncomeStatementAsReported:
-      # Placeholder schema - needs definition based on actual API response
-      type: object
-      properties:
-        # Example property, replace with actual fields
-        reportedRevenue:
-          type: number
-
-    BalanceSheetAsReported:
-      # Placeholder schema - needs definition based on actual API response
-      type: object
-      properties:
-        # Example property, replace with actual fields
-        reportedAssets:
-          type: number
-
-    CashFlowStatementAsReported:
-      # Placeholder schema - needs definition based on actual API response
-      type: object
-      properties:
-        # Example property, replace with actual fields
-        reportedOperatingCashFlow:
-          type: number
-
-    FullFinancialStatementAsReported:
-      # Placeholder schema - needs definition based on actual API response
-      type: object
-      properties:
-        # Combine fields from Income, Balance Sheet, Cash Flow as reported
-        reportedRevenue:
-          type: number
-        reportedAssets:
-          type: number
-        reportedOperatingCashFlow:
-          type: number
-
-    KeyMetrics:
-      type: object
-      properties:
-        # Add properties based on the /key-metrics endpoint response
-        # Example:
-        revenuePerShareTTM:
-          type: number
-          format: float
-        netIncomePerShareTTM:
-          type: number
-          format: float
-        operatingCashFlowPerShareTTM:
-          type: number
-          format: float
-        freeCashFlowPerShareTTM:
-          type: number
-          format: float
-        cashPerShareTTM:
-          type: number
-          format: float
-        bookValuePerShareTTM:
-          type: number
-          format: float
-        tangibleBookValuePerShareTTM:
-          type: number
-          format: float
-        shareholdersEquityPerShareTTM:
-          type: number
-          format: float
-        interestDebtPerShareTTM:
-          type: number
-          format: float
-        marketCapTTM:
-          type: number
-        enterpriseValueTTM:
-          type: number
-        peRatioTTM:
-          type: number
-          format: float
-        priceToSalesRatioTTM:
-          type: number
-          format: float
-        pocfratioTTM: # Price to operating cash flow ratio
-          type: number
-          format: float
-        pfcfRatioTTM: # Price to free cash flow ratio
-          type: number
-          format: float
-        pbRatioTTM: # Price to book ratio
-          type: number
-          format: float
-        ptbRatioTTM: # Price to tangible book ratio
-          type: number
-          format: float
-        evToSalesTTM: # Enterprise value to sales
-          type: number
-          format: float
-        enterpriseValueOverEBITDATTM:
-          type: number
-          format: float
-        evToOperatingCashFlowTTM:
-          type: number
-          format: float
-        evToFreeCashFlowTTM:
-          type: number
-          format: float
-        earningsYieldTTM:
-          type: number
-          format: float
-        freeCashFlowYieldTTM:
-          type: number
-          format: float
-        debtToEquityTTM:
-          type: number
-          format: float
-        debtToAssetsTTM:
-          type: number
-          format: float
-        netDebtToEBITDATTM:
-          type: number
-          format: float
-        currentRatioTTM:
-          type: number
-          format: float
-        interestCoverageTTM:
-          type: number
-          format: float
-        incomeQualityTTM:
-          type: number
-          format: float
-        dividendYieldTTM:
-          type: number
-          format: float
-        payoutRatioTTM:
-          type: number
-          format: float
-        salesGeneralAndAdministrativeToRevenueTTM:
-          type: number
-          format: float
-        researchAndDevelopementToRevenueTTM:
-          type: number
-          format: float
-        intangiblesToTotalAssetsTTM:
-          type: number
-          format: float
-        capexToOperatingCashFlowTTM:
-          type: number
-          format: float
-        capexToRevenueTTM:
-          type: number
-          format: float
-        capexToDepreciationTTM:
-          type: number
-          format: float
-        stockBasedCompensationToRevenueTTM:
-          type: number
-          format: float
-        grahamNumberTTM:
-          type: number
-          format: float
-        roicTTM: # Return on invested capital
-          type: number
-          format: float
-        returnOnTangibleAssetsTTM:
-          type: number
-          format: float
-        grahamNetNetTTM:
-          type: number
-          format: float
-        workingCapitalTTM:
-          type: number
-        tangibleAssetValueTTM:
-          type: number
-        netCurrentAssetValueTTM:
-          type: number
-        investedCapitalTTM:
-          type: number
-        averageReceivablesTTM:
-          type: number
-        averagePayablesTTM:
-          type: number
-        averageInventoryTTM:
-          type: number
-        daysSalesOutstandingTTM:
-          type: number
-          format: float
-        daysPayablesOutstandingTTM:
-          type: number
-          format: float
-        daysOfInventoryOnHandTTM:
-          type: number
-          format: float
-        receivablesTurnoverTTM:
-          type: number
-          format: float
-        payablesTurnoverTTM:
-          type: number
-          format: float
-        inventoryTurnoverTTM:
-          type: number
-          format: float
-        roeTTM: # Return on equity
-          type: number
-          format: float
-        capexPerShareTTM:
-          type: number
-          format: float
-
-    KeyMetricsTTM:
-      $ref: "#/components/schemas/KeyMetrics" # Assuming TTM uses the same structure
-
-    Ratios:
-      type: object
-      properties:
-        # Add properties based on the /ratios endpoint response
-        # Example:
-        currentRatio:
-          type: number
-          format: float
-        quickRatio:
-          type: number
-          format: float
-        cashRatio:
-          type: number
-          format: float
-        daysOfSalesOutstanding:
-          type: number
-          format: float
-        daysOfInventoryOutstanding:
-          type: number
-          format: float
-        operatingCycle:
-          type: number
-          format: float
-        daysOfPayablesOutstanding:
-          type: number
-          format: float
-        cashConversionCycle:
-          type: number
-          format: float
-        grossProfitMargin:
-          type: number
-          format: float
-        operatingProfitMargin:
-          type: number
-          format: float
-        pretaxProfitMargin:
-          type: number
-          format: float
-        netProfitMargin:
-          type: number
-          format: float
-        effectiveTaxRate:
-          type: number
-          format: float
-        returnOnAssets:
-          type: number
-          format: float
-        returnOnEquity:
-          type: number
-          format: float
-        returnOnCapitalEmployed:
-          type: number
-          format: float
-        netIncomePerEBT:
-          type: number
-          format: float
-        ebtPerEbit:
-          type: number
-          format: float
-        ebitPerRevenue:
-          type: number
-          format: float
-        debtRatio:
-          type: number
-          format: float
-        debtEquityRatio:
-          type: number
-          format: float
-        longTermDebtToCapitalization:
-          type: number
-          format: float
-        totalDebtToCapitalization:
-          type: number
-          format: float
-        interestCoverage:
-          type: number
-          format: float
-        cashFlowToDebtRatio:
-          type: number
-          format: float
-        companyEquityMultiplier:
-          type: number
-          format: float
-        receivablesTurnover:
-          type: number
-          format: float
-        payablesTurnover:
-          type: number
-          format: float
-        inventoryTurnover:
-          type: number
-          format: float
-        fixedAssetTurnover:
-          type: number
-          format: float
-        assetTurnover:
-          type: number
-          format: float
-        operatingCashFlowPerShare:
-          type: number
-          format: float
-        freeCashFlowPerShare:
-          type: number
-          format: float
-        cashPerShare:
-          type: number
-          format: float
-        payoutRatio:
-          type: number
-          format: float
-        operatingCashFlowSalesRatio:
-          type: number
-          format: float
-        freeCashFlowOperatingCashFlowRatio:
-          type: number
-          format: float
-        cashFlowCoverageRatios:
-          type: number
-          format: float
-        shortTermCoverageRatios:
-          type: number
-          format: float
-        capitalExpenditureCoverageRatio:
-          type: number
-          format: float
-        dividendPaidAndCapexCoverageRatio:
-          type: number
-          format: float
-        dividendPayoutRatio:
-          type: number
-          format: float
-        priceBookValueRatio:
-          type: number
-          format: float
-        priceToBookRatio:
-          type: number
-          format: float
-        priceToSalesRatio:
-          type: number
-          format: float
-        priceEarningsRatio:
-          type: number
-          format: float
-        priceToFreeCashFlowsRatio:
-          type: number
-          format: float
-        priceToOperatingCashFlowsRatio:
-          type: number
-          format: float
-        priceCashFlowRatio:
-          type: number
-          format: float
-        priceEarningsToGrowthRatio:
-          type: number
-          format: float
-        priceSalesRatio:
-          type: number
-          format: float
-        dividendYield:
-          type: number
-          format: float
-        enterpriseValueMultiple:
-          type: number
-          format: float
-        priceFairValue:
-          type: number
-          format: float
-
-    RatiosTTM:
-      $ref: "#/components/schemas/Ratios" # Assuming TTM uses the same structure
-
-    CashFlowGrowth:
-      type: object
-      properties:
-        # Add properties based on the /cash-flow-statement-growth response
-        # Example:
-        growthNetIncome:
-          type: number
-          format: float
-        growthDepreciationAndAmortization:
-          type: number
-          format: float
-        # ... other growth fields
-
-    IncomeGrowth:
-      type: object
-      properties:
-        # Add properties based on the /income-statement-growth response
-        # Example:
-        growthRevenue:
-          type: number
-          format: float
-        growthCostOfRevenue:
-          type: number
-          format: float
-        # ... other growth fields
-
-    BalanceSheetGrowth:
-      type: object
-      properties:
-        # Add properties based on the /balance-sheet-statement-growth response
-        # Example:
-        growthTotalAssets:
-          type: number
-          format: float
-        growthTotalLiabilities:
-          type: number
-          format: float
-        # ... other growth fields
-
-    FinancialGrowth:
-      type: object
-      properties:
-        # Combine growth fields from Income, Balance Sheet, Cash Flow
-        growthRevenue:
-          type: number
-          format: float
-        growthTotalAssets:
-          type: number
-          format: float
-        growthNetIncome:
-          type: number
-          format: float
-        # ... other combined growth fields
-
-    FinancialScore:
-      type: object
-      properties:
-        symbol:
-          type: string
-        altmanZScore:
-          type: number
-          format: float
-        piotroskiScore:
-          type: integer
-        workingCapital:
-          type: number
-        totalAssets:
-          type: number
-        retainedEarnings:
-          type: number
-        ebit: # Earnings Before Interest and Taxes
-          type: number
-        marketCap:
-          type: number
-        totalLiabilities:
-          type: number
-        revenue:
-          type: number
-
-    OwnerEarnings:
-      type: object
-      properties:
-        symbol:
-          type: string
-        date:
-          type: string
-          format: date
-        ownerEarnings:
-          type: number
-
-    EnterpriseValue:
-      type: object
-      properties:
-        symbol:
-          type: string
-        date:
-          type: string
-          format: date
-        stockPrice:
-          type: number
-          format: float
-        numberOfShares:
-          type: number
-        marketCapitalization:
-          type: number
-        minusCashAndCashEquivalents:
-          type: number
-        plusTotalDebt:
-          type: number
-        enterpriseValue:
-          type: number
-
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: "Invalid API key"
-
-  parameters:
-    symbol:
-      name: symbol
-      in: query
-      description: Stock symbol
-      required: true
-      schema:
-        type: string
-        example: "AAPL"
-
-    period:
-      name: period
-      in: query
-      description: Period for financial statements
-      required: false
-      schema:
-        type: string
-        enum: ["annual", "quarter"]
-        default: "annual"
-
-    limit:
-      name: limit
-      in: query
-      description: Number of results to return
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-
-    cik:
-      name: cik
-      in: query
-      description: Company CIK number
-      required: false
-      schema:
-        type: string
-        example: "0000320193"
-
-    apikey:
-      name: apikey
-      in: query
-      description: API key for Financial Modeling Prep API
-      required: true
-      schema:
-        type: string
-
-  responses:
-    UnauthorizedError:
-      description: Unauthorized - Invalid API Key
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            error: "Invalid API key. Please retry or visit our documentation to create one https://site.financialmodelingprep.com/developer/docs"
-    NotFoundError:
-      description: Not Found - Symbol or resource not found
-      content:
-        application/json:
-          schema:
-            type: object # Specific error structure might vary
-            properties:
-              Error Message:
-                type: string
-          example:
-            Error Message: "Symbol not supported. Please refer to our documentation for available symbols https://site.financialmodelingprep.com/developer/docs"
-
-security:
-  - apiKey: []
-
+  - url: https://financialmodelingprep.com
+    description: Financial Modeling Prep API
 paths:
-  /profile/{symbol}:
+  /stable/quote:
     get:
-      summary: Get company profile
-      description: Returns general information about a company
-      operationId: getCompanyProfile
+      summary: Stock Quote API
+      description: Access real-time stock quotes with the FMP Stock Quote API. Get up-to-the-minute prices, changes, and volume data for individual stocks.
       parameters:
         - name: symbol
-          in: path
-          description: Stock symbol
+          in: query
           required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Company profile successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CompanyProfile"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Company not found
-
-  /income-statement/{symbol}:
-    get:
-      summary: Get income statements
-      description: Returns income statements for a company
-      operationId: getIncomeStatements
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
+          example: "AAPL"
+        - name: apikey
+          in: query
           required: true
+          description: API key for authentication
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
-          description: Income statements successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/IncomeStatement"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Company not found
-
-  /balance-sheet-statement/{symbol}:
-    get:
-      summary: Get balance sheet statements
-      description: Returns balance sheet statements for a company
-      operationId: getBalanceSheetStatements
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Balance sheet statements successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/BalanceSheet"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Company not found
-
-  /cash-flow-statement/{symbol}:
-    get:
-      summary: Get cash flow statements
-      description: Returns cash flow statements for a company
-      operationId: getCashFlowStatements
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Cash flow statements successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CashFlowStatement"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Company not found
-
-  /quote/{symbol}:
-    get:
-      summary: Get real-time stock price
-      description: Returns the real-time price and related data for a company stock
-      operationId: getStockQuote
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Stock quote successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/StockPrice"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Stock symbol not found
-
-  /quote-short/{symbol}:
-    get:
-      summary: Get simplified real-time stock price
-      description: Returns a simplified version of real-time price data for a company stock
-      operationId: getSimplifiedStockQuote
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Simplified stock quote successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    symbol:
-                      type: string
-                      example: "AAPL"
-                    price:
-                      type: number
-                      format: float
-                      example: 157.35
-                    volume:
-                      type: integer
-                      example: 28053624
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Stock symbol not found
-
-  /stock/list:
-    get:
-      summary: Get list of available stocks
-      description: Returns a list of available stocks with basic information
-      operationId: getStocksList
-      parameters:
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: List of stocks successfully retrieved
+          description: Successful response
           content:
             application/json:
               schema:
@@ -1531,111 +44,80 @@ paths:
                     price:
                       type: number
                       format: float
-                      example: 157.35
+                      example: 232.8
+                    changePercentage:
+                      type: number
+                      format: float
+                      example: 2.1008
+                    change:
+                      type: number
+                      format: float
+                      example: 4.79
+                    volume:
+                      type: integer
+                      example: 44489128
+                    dayLow:
+                      type: number
+                      format: float
+                      example: 226.65
+                    dayHigh:
+                      type: number
+                      format: float
+                      example: 233.13
+                    yearHigh:
+                      type: number
+                      format: float
+                      example: 260.1
+                    yearLow:
+                      type: number
+                      format: float
+                      example: 164.08
+                    marketCap:
+                      type: integer
+                      example: 350082312000
+                    priceAvg50:
+                      type: number
+                      format: float
+                      example: 240.2278
+                    priceAvg200:
+                      type: number
+                      format: float
+                      example: 219.98755
                     exchange:
                       type: string
                       example: "NASDAQ"
-                    exchangeShortName:
-                      type: string
-                      example: "NASDAQ"
-                    type:
-                      type: string
-                      example: "stock"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
-  /historical-price-full/{symbol}:
+                    open:
+                      type: number
+                      format: float
+                      example: 227.2
+                    previousClose:
+                      type: number
+                      format: float
+                      example: 228.01
+                    timestamp:
+                      type: integer
+                      example: 1738702801
+  /stable/aftermarket-trade:
     get:
-      summary: Get historical stock prices
-      description: Returns historical price data for a company stock
-      operationId: getHistoricalPrices
+      summary: Aftermarket Trade API
+      description: Track real-time trading activity occurring after regular market hours with the FMP Aftermarket Trade API. Access key details such as trade prices, sizes, and timestamps for trades executed during the post-market session.
       parameters:
         - name: symbol
-          in: path
-          description: Stock symbol
+          in: query
           required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
           schema:
             type: string
-            example: "AAPL"
-        - name: from
+          example: "AAPL"
+        - name: apikey
           in: query
-          description: Start date (YYYY-MM-DD)
-          required: false
+          required: true
+          description: API key for authentication
           schema:
             type: string
-            format: date
-            example: "2021-01-01"
-        - name: to
-          in: query
-          description: End date (YYYY-MM-DD)
-          required: false
-          schema:
-            type: string
-            format: date
-            example: "2021-12-31"
-        - name: timeseries
-          in: query
-          description: Number of data points to return
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 5000
-            example: 100
-        - name: serietype
-          in: query
-          description: Type of time series
-          required: false
-          schema:
-            type: string
-            enum: ["line", "candlestick"]
-            default: "line"
-        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
-          description: Historical prices successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  symbol:
-                    type: string
-                    example: "AAPL"
-                  historical:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/HistoricalPrice"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Stock symbol not found
-
-  /stock-price-change/{symbol}:
-    get:
-      summary: Get stock price change information
-      description: Returns stock price changes over different time periods
-      operationId: getStockPriceChange
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Stock price change information successfully retrieved
+          description: Successful response
           content:
             application/json:
               schema:
@@ -1646,108 +128,37 @@ paths:
                     symbol:
                       type: string
                       example: "AAPL"
-                    1D:
+                    price:
                       type: number
                       format: float
-                      example: -0.54
-                    5D:
-                      type: number
-                      format: float
-                      example: 3.15
-                    1M:
-                      type: number
-                      format: float
-                      example: 7.89
-                    3M:
-                      type: number
-                      format: float
-                      example: 12.41
-                    6M:
-                      type: number
-                      format: float
-                      example: 15.26
-                    ytd:
-                      type: number
-                      format: float
-                      example: 20.98
-                    1Y:
-                      type: number
-                      format: float
-                      example: 25.43
-                    3Y:
-                      type: number
-                      format: float
-                      example: 112.8
-                    5Y:
-                      type: number
-                      format: float
-                      example: 237.42
-                    10Y:
-                      type: number
-                      format: float
-                      example: 725.15
-                    max:
-                      type: number
-                      format: float
-                      example: 129801.5
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Stock symbol not found
-
-  /earning_calendar:
+                      example: 232.53
+                    tradeSize:
+                      type: integer
+                      example: 132
+                    timestamp:
+                      type: integer
+                      example: 1738715334311
+  /stable/aftermarket-quote:
     get:
-      summary: Get earnings calendar
-      description: Returns upcoming earnings announcements
-      operationId: getEarningsCalendar
+      summary: Aftermarket Quote API
+      description: Access real-time aftermarket quotes for stocks with the FMP Aftermarket Quote API. Track bid and ask prices, volume, and other relevant data outside of regular trading hours.
       parameters:
-        - name: from
+        - name: symbol
           in: query
-          description: Start date (YYYY-MM-DD)
-          required: false
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
           schema:
             type: string
-            format: date
-            example: "2023-01-01"
-        - name: to
+          example: "AAPL"
+        - name: apikey
           in: query
-          description: End date (YYYY-MM-DD)
-          required: false
+          required: true
+          description: API key for authentication
           schema:
             type: string
-            format: date
-            example: "2023-12-31"
-        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
-          description: Earnings calendar successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EarningsCalendar"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
-  /stock/sectors-performance:
-    get:
-      summary: Get sectors performance
-      description: Returns performance data for market sectors
-      operationId: getSectorsPerformance
-      parameters:
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Sectors performance successfully retrieved
+          description: Successful response
           content:
             application/json:
               schema:
@@ -1755,526 +166,510 @@ paths:
                 items:
                   type: object
                   properties:
-                    sector:
+                    symbol:
                       type: string
-                      example: "Technology"
-                    changesPercentage:
+                      example: "AAPL"
+                    bidSize:
+                      type: integer
+                      example: 1
+                    bidPrice:
                       type: number
                       format: float
-                      example: 1.25
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
-  /quote/index:
+                      example: 232.45
+                    askSize:
+                      type: integer
+                      example: 3
+                    askPrice:
+                      type: number
+                      format: float
+                      example: 232.64
+                    volume:
+                      type: integer
+                      example: 41647042
+                    timestamp:
+                      type: integer
+                      example: 1738715334311
+  /stable/stock-price-change:
     get:
-      summary: Get major market indices
-      description: Returns prices for major market indices
-      operationId: getMarketIndices
-      parameters:
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Market indices successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MarketIndex"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
-  /fx:
-    get:
-      summary: Get Forex (FX) rates
-      description: Returns real-time Forex quotes
-      operationId: getFxRates
-      parameters:
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Forex rates successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ForexQuote"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
-  /fx/{pair}:
-    get:
-      summary: Get specific Forex (FX) pair rate
-      description: Returns real-time quote for a specific Forex pair
-      operationId: getFxPairRate
-      parameters:
-        - name: pair
-          in: path
-          description: Forex currency pair (e.g., EURUSD)
-          required: true
-          schema:
-            type: string
-            example: "EURUSD"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Forex pair rate successfully retrieved
-          content:
-            application/json:
-              schema:
-                type: array # API returns an array even for single pair
-                items:
-                  $ref: "#/components/schemas/ForexQuote"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Forex pair not found
-
-  /income-statement-as-reported/{symbol}:
-    get:
-      summary: Get Income Statements As Reported
-      description: Returns income statements as reported by the company, without adjustments.
-      operationId: getIncomeStatementsAsReported
+      summary: Stock Price Change API
+      description: Track stock price fluctuations in real-time with the FMP Stock Price Change API. Monitor percentage and value changes over various time periods, including daily, weekly, monthly, and long-term.
       parameters:
         - name: symbol
-          in: path
-          description: Stock symbol or CIK
+          in: query
           required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
+          example: "AAPL"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
       responses:
         "200":
-          description: As Reported Income Statements retrieved
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/IncomeStatementAsReported"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /balance-sheet-statement-as-reported/{symbol}:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    "1D":
+                      type: number
+                      format: float
+                      example: 2.1008
+                    "5D":
+                      type: number
+                      format: float
+                      example: -2.45946
+                    "1M":
+                      type: number
+                      format: float
+                      example: -4.33925
+                    "3M":
+                      type: number
+                      format: float
+                      example: 4.86014
+                    "6M":
+                      type: number
+                      format: float
+                      example: 5.88556
+                    ytd:
+                      type: number
+                      format: float
+                      example: -4.53147
+                    "1Y":
+                      type: number
+                      format: float
+                      example: 24.04092
+                    "3Y":
+                      type: number
+                      format: float
+                      example: 35.04264
+                    "5Y":
+                      type: number
+                      format: float
+                      example: 192.05871
+                    "10Y":
+                      type: number
+                      format: float
+                      example: 678.8558
+                    max:
+                      type: number
+                      format: float
+                      example: 181279.04168
+  /stable/institutional-ownership/latest:
     get:
-      summary: Get Balance Sheet Statements As Reported
-      description: Returns balance sheets as reported by the company, without adjustments.
-      operationId: getBalanceSheetStatementsAsReported
+      summary: Institutional Ownership Filings API
+      description: Stay up to date with the most recent SEC filings related to institutional ownership using the Institutional Ownership Filings API. This tool allows you to track the latest reports and disclosures from institutional investors, giving you a real-time view of major holdings and regulatory submissions.
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination
+          schema:
+            type: number
+          example: 0
+        - name: limit
+          in: query
+          required: false
+          description: Number of results per page
+          schema:
+            type: number
+          example: 100
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cik:
+                      type: string
+                      example: "0001963967"
+                    name:
+                      type: string
+                      example: "CPA ASSET MANAGEMENT LLC"
+                    date:
+                      type: string
+                      example: "2024-12-31"
+                    filingDate:
+                      type: string
+                      example: "2025-02-04 00:00:00"
+                    acceptedDate:
+                      type: string
+                      example: "2025-02-04 17:28:36"
+                    formType:
+                      type: string
+                      example: "13F-HR"
+                    link:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/1963967/000196396725000001/0001963967-25-000001-index.htm"
+                    finalLink:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/1963967/000196396725000001/boc2024q413f.xml"
+  /stable/institutional-ownership/extract:
+    get:
+      summary: SEC Filings Extract API
+      description: The SEC Filings Extract API allows users to extract detailed data directly from official SEC filings. This API provides access to key information such as company shares, security details, and filing links, making it easier to analyze corporate disclosures.
+      parameters:
+        - name: cik
+          in: query
+          required: true
+          description: Central Index Key (CIK) for the company
+          schema:
+            type: string
+          example: "0001388838"
+        - name: year
+          in: query
+          required: true
+          description: Year of the filing
+          schema:
+            type: string
+          example: "2023"
+        - name: quarter
+          in: query
+          required: true
+          description: Quarter of the filing (1-4)
+          schema:
+            type: string
+          example: "3"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      example: "2023-09-30"
+                    filingDate:
+                      type: string
+                      example: "2023-11-13"
+                    acceptedDate:
+                      type: string
+                      example: "2023-11-13"
+                    cik:
+                      type: string
+                      example: "0001388838"
+                    securityCusip:
+                      type: string
+                      example: "674215207"
+                    symbol:
+                      type: string
+                      example: "CHRD"
+                    nameOfIssuer:
+                      type: string
+                      example: "CHORD ENERGY CORPORATION"
+                    shares:
+                      type: integer
+                      example: 13280
+                    titleOfClass:
+                      type: string
+                      example: "COM NEW"
+                    sharesType:
+                      type: string
+                      example: "SH"
+                    putCallShare:
+                      type: string
+                      example: ""
+                    value:
+                      type: integer
+                      example: 2152290
+                    link:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/1388838/000117266123003760/0001172661-23-003760-index.htm"
+                    finalLink:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/1388838/000117266123003760/infotable.xml"
+  /stable/institutional-ownership/dates:
+    get:
+      summary: Form 13F Filings Dates API
+      description: The Form 13F Filings Dates API allows you to retrieve dates associated with Form 13F filings by institutional investors. This is crucial for tracking stock holdings of institutional investors at specific points in time, providing valuable insights into their investment strategies.
+      parameters:
+        - name: cik
+          in: query
+          required: true
+          description: Central Index Key (CIK) for the institutional investor
+          schema:
+            type: string
+          example: "0001067983"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      example: "2024-09-30"
+                    year:
+                      type: integer
+                      example: 2024
+                    quarter:
+                      type: integer
+                      example: 3
+  /stable/institutional-ownership/extract-analytics/holder:
+    get:
+      summary: Institutional Ownership Extract Analytics by Holder
+      description: Retrieve detailed analytics about institutional investors' holdings for a specific stock symbol, showing ownership changes, market values, and performance metrics over time.
       parameters:
         - name: symbol
-          in: path
-          description: Stock symbol or CIK
+          in: query
           required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: As Reported Balance Sheets retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/BalanceSheetAsReported"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /cash-flow-statement-as-reported/{symbol}:
-    get:
-      summary: Get Cash Flow Statements As Reported
-      description: Returns cash flow statements as reported by the company, without adjustments.
-      operationId: getCashFlowStatementsAsReported
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol or CIK
+          example: "AAPL"
+        - name: year
+          in: query
           required: true
+          description: Year of the filing
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: As Reported Cash Flow Statements retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CashFlowStatementAsReported"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /financial-statement-full-as-reported/{symbol}:
-    get:
-      summary: Get Full Financial Statements As Reported
-      description: Returns comprehensive financial statements as reported by the company.
-      operationId: getFullFinancialStatementsAsReported
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol or CIK
+          example: "2023"
+        - name: quarter
+          in: query
           required: true
+          description: Quarter of the filing (1-4)
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Full As Reported Financial Statements retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/FullFinancialStatementAsReported"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /key-metrics/{symbol}:
-    get:
-      summary: Get Key Metrics
-      description: Returns key financial metrics for a company.
-      operationId: getKeyMetrics
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
+          example: "3"
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination
+          schema:
+            type: integer
+          example: 0
+        - name: limit
+          in: query
+          required: false
+          description: Number of results per page
+          schema:
+            type: integer
+          example: 10
+        - name: apikey
+          in: query
           required: true
+          description: API key for authentication
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
-          description: Key metrics retrieved
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/KeyMetrics"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /key-metrics-ttm/{symbol}:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      example: "2023-09-30"
+                    cik:
+                      type: string
+                      example: "0000102909"
+                    filingDate:
+                      type: string
+                      example: "2023-12-18"
+                    investorName:
+                      type: string
+                      example: "VANGUARD GROUP INC"
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    securityName:
+                      type: string
+                      example: "APPLE INC"
+                    typeOfSecurity:
+                      type: string
+                      example: "COM"
+                    securityCusip:
+                      type: string
+                      example: "037833100"
+                    sharesType:
+                      type: string
+                      example: "SH"
+                    putCallShare:
+                      type: string
+                      example: "Share"
+                    investmentDiscretion:
+                      type: string
+                      example: "SOLE"
+                    industryTitle:
+                      type: string
+                      example: "ELECTRONIC COMPUTERS"
+                    weight:
+                      type: number
+                      format: float
+                      example: 5.4673
+                    lastWeight:
+                      type: number
+                      format: float
+                      example: 5.996
+                    changeInWeight:
+                      type: number
+                      format: float
+                      example: -0.5287
+                    changeInWeightPercentage:
+                      type: number
+                      format: float
+                      example: -8.8175
+                    marketValue:
+                      type: number
+                      format: float
+                      example: 222572509140
+                    lastMarketValue:
+                      type: number
+                      format: float
+                      example: 252876459509
+                    changeInMarketValue:
+                      type: number
+                      format: float
+                      example: -30303950369
+                    changeInMarketValuePercentage:
+                      type: number
+                      format: float
+                      example: -11.9837
+                    sharesNumber:
+                      type: number
+                      format: float
+                      example: 1299997133
+                    lastSharesNumber:
+                      type: number
+                      format: float
+                      example: 1303688506
+                    changeInSharesNumber:
+                      type: number
+                      format: float
+                      example: -3691373
+                    changeInSharesNumberPercentage:
+                      type: number
+                      format: float
+                      example: -0.2831
+                    quarterEndPrice:
+                      type: number
+                      format: float
+                      example: 171.21
+                    avgPricePaid:
+                      type: number
+                      format: float
+                      example: 95.86
+                    isNew:
+                      type: boolean
+                      example: false
+                    isSoldOut:
+                      type: boolean
+                      example: false
+                    ownership:
+                      type: number
+                      format: float
+                      example: 8.3336
+                    lastOwnership:
+                      type: number
+                      format: float
+                      example: 8.305
+                    changeInOwnership:
+                      type: number
+                      format: float
+                      example: 0.0286
+                    changeInOwnershipPercentage:
+                      type: number
+                      format: float
+                      example: 0.3445
+                    holdingPeriod:
+                      type: integer
+                      example: 42
+                    firstAdded:
+                      type: string
+                      example: "2013-06-30"
+                    performance:
+                      type: number
+                      format: float
+                      example: -29671950396
+                    performancePercentage:
+                      type: number
+                      format: float
+                      example: -11.7338
+                    lastPerformance:
+                      type: number
+                      format: float
+                      example: 38078179274
+                    changeInPerformance:
+                      type: number
+                      format: float
+                      example: -67750129670
+                    isCountedForPerformance:
+                      type: boolean
+                      example: true
+  /stable/insider-trading/reporting-name:
     get:
-      summary: Get Key Metrics TTM
-      description: Returns key financial metrics for the trailing twelve months (TTM).
-      operationId: getKeyMetricsTTM
+      summary: Search Insider Trades by Reporting Name API
+      description: Search for insider trading activity by reporting name using the Search Insider Trades by Reporting Name API. Track trading activities of specific individuals or groups involved in corporate insider transactions.
       parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
+        - name: name
+          in: query
           required: true
+          description: Name of the insider to search for
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Key metrics TTM retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/KeyMetricsTTM"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /ratios/{symbol}:
-    get:
-      summary: Get Financial Ratios
-      description: Returns financial ratios for a company.
-      operationId: getFinancialRatios
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
+          example: "Zuckerberg"
+        - name: apikey
+          in: query
           required: true
+          description: API key for authentication
           schema:
             type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
-          description: Financial ratios retrieved
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Ratios"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /ratios-ttm/{symbol}:
-    get:
-      summary: Get Financial Ratios TTM
-      description: Returns financial ratios for the trailing twelve months (TTM).
-      operationId: getFinancialRatiosTTM
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Financial ratios TTM retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/RatiosTTM"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /income-statement-growth/{symbol}:
-    get:
-      summary: Get Income Statement Growth
-      description: Returns growth rates for income statement items.
-      operationId: getIncomeStatementGrowth
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Income statement growth retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/IncomeGrowth"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /balance-sheet-statement-growth/{symbol}:
-    get:
-      summary: Get Balance Sheet Growth
-      description: Returns growth rates for balance sheet items.
-      operationId: getBalanceSheetGrowth
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Balance sheet growth retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/BalanceSheetGrowth"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /cash-flow-statement-growth/{symbol}:
-    get:
-      summary: Get Cash Flow Statement Growth
-      description: Returns growth rates for cash flow statement items.
-      operationId: getCashFlowStatementGrowth
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Cash flow statement growth retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CashFlowGrowth"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /financial-growth/{symbol}:
-    get:
-      summary: Get Financial Growth
-      description: Returns overall financial growth rates for a company.
-      operationId: getFinancialGrowth
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Financial growth retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/FinancialGrowth"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /enterprise-values/{symbol}:
-    get:
-      summary: Get Enterprise Values
-      description: Returns the enterprise value of a company over time.
-      operationId: getEnterpriseValues
-      parameters:
-        - name: symbol
-          in: path
-          description: Stock symbol
-          required: true
-          schema:
-            type: string
-            example: "AAPL"
-        - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Enterprise values retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EnterpriseValue"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  # V4 Endpoints (Note: Server URL might differ for v4)
-  /score:
-    get:
-      summary: Get Financial Score
-      description: Returns Altman Z-Score and Piotroski F-Score for a company.
-      operationId: getFinancialScore
-      parameters:
-        - $ref: "#/components/parameters/symbol"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Financial score retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/FinancialScore"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-
-  /owner_earnings:
-    get:
-      summary: Get Owner Earnings
-      description: Returns the owner earnings for a company.
-      operationId: getOwnerEarnings
-      parameters:
-        - $ref: "#/components/parameters/symbol"
-        - $ref: "#/components/parameters/apikey"
-      responses:
-        "200":
-          description: Owner earnings retrieved
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/OwnerEarnings"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
+                  type: object
+                  properties:
+                    reportingCik:
+                      type: string
+                      example: "0001548760"
+                    reportingName:
+                      type: string
+                      example: "Zuckerberg Mark"
