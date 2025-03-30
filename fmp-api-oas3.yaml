@@ -1263,8 +1263,8 @@ components:
         type: string
         example: "0000320193"
 
-    fmp_apikey:
-      name: fmp_apikey
+    apikey:
+      name: apikey
       in: query
       description: API key for Financial Modeling Prep API
       required: true
@@ -1296,7 +1296,7 @@ security:
   - apiKey: []
 
 paths:
-  /v3/profile/{symbol}:
+  /profile/{symbol}:
     get:
       summary: Get company profile
       description: Returns general information about a company
@@ -1309,7 +1309,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Company profile successfully retrieved
@@ -1328,7 +1328,7 @@ paths:
         "404":
           description: Company not found
 
-  /v3/income-statement/{symbol}:
+  /income-statement/{symbol}:
     get:
       summary: Get income statements
       description: Returns income statements for a company
@@ -1343,7 +1343,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Income statements successfully retrieved
@@ -1362,7 +1362,7 @@ paths:
         "404":
           description: Company not found
 
-  /v3/balance-sheet-statement/{symbol}:
+  /balance-sheet-statement/{symbol}:
     get:
       summary: Get balance sheet statements
       description: Returns balance sheet statements for a company
@@ -1377,7 +1377,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Balance sheet statements successfully retrieved
@@ -1396,7 +1396,7 @@ paths:
         "404":
           description: Company not found
 
-  /v3/cash-flow-statement/{symbol}:
+  /cash-flow-statement/{symbol}:
     get:
       summary: Get cash flow statements
       description: Returns cash flow statements for a company
@@ -1411,7 +1411,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Cash flow statements successfully retrieved
@@ -1430,7 +1430,7 @@ paths:
         "404":
           description: Company not found
 
-  /v3/quote/{symbol}:
+  /quote/{symbol}:
     get:
       summary: Get real-time stock price
       description: Returns the real-time price and related data for a company stock
@@ -1443,7 +1443,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Stock quote successfully retrieved
@@ -1462,7 +1462,7 @@ paths:
         "404":
           description: Stock symbol not found
 
-  /v3/quote-short/{symbol}:
+  /quote-short/{symbol}:
     get:
       summary: Get simplified real-time stock price
       description: Returns a simplified version of real-time price data for a company stock
@@ -1475,7 +1475,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Simplified stock quote successfully retrieved
@@ -1505,13 +1505,13 @@ paths:
         "404":
           description: Stock symbol not found
 
-  /v3/stock/list:
+  /stock/list:
     get:
       summary: Get list of available stocks
       description: Returns a list of available stocks with basic information
       operationId: getStocksList
       parameters:
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: List of stocks successfully retrieved
@@ -1548,7 +1548,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /v3/historical-price-full/{symbol}:
+  /historical-price-full/{symbol}:
     get:
       summary: Get historical stock prices
       description: Returns historical price data for a company stock
@@ -1594,7 +1594,7 @@ paths:
             type: string
             enum: ["line", "candlestick"]
             default: "line"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Historical prices successfully retrieved
@@ -1619,7 +1619,7 @@ paths:
         "404":
           description: Stock symbol not found
 
-  /v3/stock-price-change/{symbol}:
+  /stock-price-change/{symbol}:
     get:
       summary: Get stock price change information
       description: Returns stock price changes over different time periods
@@ -1632,7 +1632,7 @@ paths:
           schema:
             type: string
             example: "AAPL"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Stock price change information successfully retrieved
@@ -1699,7 +1699,7 @@ paths:
         "404":
           description: Stock symbol not found
 
-  /v3/earning_calendar:
+  /earning_calendar:
     get:
       summary: Get earnings calendar
       description: Returns upcoming earnings announcements
@@ -1721,7 +1721,7 @@ paths:
             type: string
             format: date
             example: "2023-12-31"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Earnings calendar successfully retrieved
@@ -1738,13 +1738,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /v3/stock/sectors-performance:
+  /stock/sectors-performance:
     get:
       summary: Get sectors performance
       description: Returns performance data for market sectors
       operationId: getSectorsPerformance
       parameters:
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Sectors performance successfully retrieved
@@ -1769,13 +1769,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /v3/quote/index:
+  /quote/index:
     get:
       summary: Get major market indices
       description: Returns prices for major market indices
       operationId: getMarketIndices
       parameters:
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Market indices successfully retrieved
@@ -1792,13 +1792,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /v3/fx:
+  /fx:
     get:
       summary: Get Forex (FX) rates
       description: Returns real-time Forex quotes
       operationId: getFxRates
       parameters:
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Forex rates successfully retrieved
@@ -1815,7 +1815,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /v3/fx/{pair}:
+  /fx/{pair}:
     get:
       summary: Get specific Forex (FX) pair rate
       description: Returns real-time quote for a specific Forex pair
@@ -1828,7 +1828,7 @@ paths:
           schema:
             type: string
             example: "EURUSD"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Forex pair rate successfully retrieved
@@ -1847,7 +1847,7 @@ paths:
         "404":
           description: Forex pair not found
 
-  /v3/income-statement-as-reported/{symbol}:
+  /income-statement-as-reported/{symbol}:
     get:
       summary: Get Income Statements As Reported
       description: Returns income statements as reported by the company, without adjustments.
@@ -1862,7 +1862,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: As Reported Income Statements retrieved
@@ -1877,7 +1877,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/balance-sheet-statement-as-reported/{symbol}:
+  /balance-sheet-statement-as-reported/{symbol}:
     get:
       summary: Get Balance Sheet Statements As Reported
       description: Returns balance sheets as reported by the company, without adjustments.
@@ -1892,7 +1892,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: As Reported Balance Sheets retrieved
@@ -1907,7 +1907,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/cash-flow-statement-as-reported/{symbol}:
+  /cash-flow-statement-as-reported/{symbol}:
     get:
       summary: Get Cash Flow Statements As Reported
       description: Returns cash flow statements as reported by the company, without adjustments.
@@ -1922,7 +1922,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: As Reported Cash Flow Statements retrieved
@@ -1937,7 +1937,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/financial-statement-full-as-reported/{symbol}:
+  /financial-statement-full-as-reported/{symbol}:
     get:
       summary: Get Full Financial Statements As Reported
       description: Returns comprehensive financial statements as reported by the company.
@@ -1951,7 +1951,7 @@ paths:
             type: string
             example: "AAPL"
         - $ref: "#/components/parameters/period"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Full As Reported Financial Statements retrieved
@@ -1966,7 +1966,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/key-metrics/{symbol}:
+  /key-metrics/{symbol}:
     get:
       summary: Get Key Metrics
       description: Returns key financial metrics for a company.
@@ -1981,7 +1981,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Key metrics retrieved
@@ -1996,7 +1996,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/key-metrics-ttm/{symbol}:
+  /key-metrics-ttm/{symbol}:
     get:
       summary: Get Key Metrics TTM
       description: Returns key financial metrics for the trailing twelve months (TTM).
@@ -2010,7 +2010,7 @@ paths:
             type: string
             example: "AAPL"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Key metrics TTM retrieved
@@ -2025,7 +2025,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/ratios/{symbol}:
+  /ratios/{symbol}:
     get:
       summary: Get Financial Ratios
       description: Returns financial ratios for a company.
@@ -2040,7 +2040,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Financial ratios retrieved
@@ -2055,7 +2055,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/ratios-ttm/{symbol}:
+  /ratios-ttm/{symbol}:
     get:
       summary: Get Financial Ratios TTM
       description: Returns financial ratios for the trailing twelve months (TTM).
@@ -2069,7 +2069,7 @@ paths:
             type: string
             example: "AAPL"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Financial ratios TTM retrieved
@@ -2084,7 +2084,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/income-statement-growth/{symbol}:
+  /income-statement-growth/{symbol}:
     get:
       summary: Get Income Statement Growth
       description: Returns growth rates for income statement items.
@@ -2099,7 +2099,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Income statement growth retrieved
@@ -2114,7 +2114,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/balance-sheet-statement-growth/{symbol}:
+  /balance-sheet-statement-growth/{symbol}:
     get:
       summary: Get Balance Sheet Growth
       description: Returns growth rates for balance sheet items.
@@ -2129,7 +2129,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Balance sheet growth retrieved
@@ -2144,7 +2144,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/cash-flow-statement-growth/{symbol}:
+  /cash-flow-statement-growth/{symbol}:
     get:
       summary: Get Cash Flow Statement Growth
       description: Returns growth rates for cash flow statement items.
@@ -2159,7 +2159,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Cash flow statement growth retrieved
@@ -2174,7 +2174,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/financial-growth/{symbol}:
+  /financial-growth/{symbol}:
     get:
       summary: Get Financial Growth
       description: Returns overall financial growth rates for a company.
@@ -2189,7 +2189,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Financial growth retrieved
@@ -2204,7 +2204,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v3/enterprise-values/{symbol}:
+  /enterprise-values/{symbol}:
     get:
       summary: Get Enterprise Values
       description: Returns the enterprise value of a company over time.
@@ -2219,7 +2219,7 @@ paths:
             example: "AAPL"
         - $ref: "#/components/parameters/period"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Enterprise values retrieved
@@ -2242,7 +2242,7 @@ paths:
       operationId: getFinancialScore
       parameters:
         - $ref: "#/components/parameters/symbol"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Financial score retrieved
@@ -2264,7 +2264,7 @@ paths:
       operationId: getOwnerEarnings
       parameters:
         - $ref: "#/components/parameters/symbol"
-        - $ref: "#/components/parameters/fmp_apikey"
+        - $ref: "#/components/parameters/apikey"
       responses:
         "200":
           description: Owner earnings retrieved
