@@ -2235,7 +2235,7 @@ paths:
           $ref: "#/components/responses/NotFoundError"
 
   # V4 Endpoints (Note: Server URL might differ for v4)
-  /v4/score:
+  /score:
     get:
       summary: Get Financial Score
       description: Returns Altman Z-Score and Piotroski F-Score for a company.
@@ -2257,7 +2257,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
 
-  /v4/owner_earnings:
+  /owner_earnings:
     get:
       summary: Get Owner Earnings
       description: Returns the owner earnings for a company.
