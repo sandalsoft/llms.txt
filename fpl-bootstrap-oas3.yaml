@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 
 paths:
-  /bootstrap:
+  /bootstrap-static:
     get:
       summary: Get initial FPL game data
       description: Retrieves the initial game data including chips, events, and player information
