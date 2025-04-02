@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: Fantasy Premier League API
+  description: API specification for Fantasy Premier League data
+  version: 1.0.0
+
+paths:
+  /bootstrap:
+    get:
+      summary: Get initial FPL game data
+      description: Retrieves the initial game data including chips, events, and player information
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bootstrap"
+
+components:
+  schemas:
+    Bootstrap:
+      type: object
+      properties:
+        chips:
+          type: array
+          items:
+            $ref: "#/components/schemas/Chip"
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+
+    Chip:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "wildcard"
+        number:
+          type: integer
+          example: 1
+        start_event:
+          type: integer
+          example: 2
+        stop_event:
+          type: integer
+          example: 19
+        chip_type:
+          type: string
+          enum: [transfer, team]
+        overrides:
+          type: object
+          properties:
+            rules:
+              type: object
+            scoring:
+              type: object
+            element_types:
+              type: array
+              items:
+                $ref: "#/components/schemas/ElementType"
+            pick_multiplier:
+              type: string
+              nullable: true
+
+    ElementType:
+      type: object
+      properties:
+        id:
+          type: integer
+        plural_name:
+          type: string
+        plural_name_short:
+          type: string
+        singular_name:
+          type: string
+        singular_name_short:
+          type: string
+        squad_select:
+          type: integer
+        squad_min_select:
+          type: integer
+          nullable: true
+        squad_max_select:
+          type: integer
+          nullable: true
+        squad_min_play:
+          type: integer
+        squad_max_play:
+          type: integer
+        ui_shirt_specific:
+          type: boolean
+        sub_positions_locked:
+          type: array
+          items:
+            type: integer
+        element_count:
+          type: integer
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        deadline_time:
+          type: string
+          format: date-time
+        release_time:
+          type: string
+          format: date-time
+          nullable: true
+        average_entry_score:
+          type: integer
+        finished:
+          type: boolean
+        data_checked:
+          type: boolean
+        highest_scoring_entry:
+          type: integer
+        deadline_time_epoch:
+          type: integer
+        deadline_time_game_offset:
+          type: integer
+        highest_score:
+          type: integer
+        is_previous:
+          type: boolean
+        is_current:
+          type: boolean
+        is_next:
+          type: boolean
+        cup_leagues_created:
+          type: boolean
+        h2h_ko_matches_created:
+          type: boolean
+        can_enter:
+          type: boolean
+        can_manage:
+          type: boolean
+        released:
+          type: boolean
+        ranked_count:
+          type: integer
+        overrides:
+          type: object
+          properties:
+            rules:
+              type: object
+            scoring:
+              type: object
+            element_types:
+              type: array
+              items:
+                type: object
+            pick_multiplier:
+              type: string
+              nullable: true
+        chip_plays:
+          type: array
+          items:
+            type: object
+            properties:
+              chip_name:
+                type: string
+              num_played:
+                type: integer
+        most_selected:
+          type: integer
+        most_transferred_in:
+          type: integer
+        top_element:
+          type: integer
+        top_element_info:
+          type: object
+          properties:
+            id:
+              type: integer
+            points:
+              type: integer
+        transfers_made:
+          type: integer
+        most_captained:
+          type: integer
+        most_vice_captained:
+          type: integer
