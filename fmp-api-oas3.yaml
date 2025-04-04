@@ -657,6 +657,7 @@ paths:
           description: API key for authentication
           schema:
             type: string
+
       responses:
         "200":
           description: Successful response
@@ -673,3 +674,2780 @@ paths:
                     reportingName:
                       type: string
                       example: "Zuckerberg Mark"
+  /stable/earnings:
+    get:
+      summary: FMP Earnings Report API
+      description: Retrieve in-depth earnings information with the FMP Earnings Report API. Gain access to key financial data for a specific stock symbol, including earnings report dates, EPS estimates, and revenue projections to help you stay on top of company performance.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: limit
+          in: query
+          required: false
+          description: Limit the number of results returned
+          schema:
+            type: number
+          example: 5
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date
+                      example: "2025-10-29"
+                    epsActual:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null
+                    epsEstimated:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null
+                    revenueActual:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null
+                    revenueEstimated:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null
+                    lastUpdated:
+                      type: string
+                      format: date-time # Assuming date-time based on name, example is date
+                      example: "2025-02-04"
+  /stable/earnings-calendar:
+    get:
+      summary: FMP Earnings Calendar API
+      description: Stay informed on upcoming and past earnings announcements with the FMP Earnings Calendar API. Access key data, including announcement dates, estimated earnings per share (EPS), and actual EPS for publicly traded companies.
+      parameters:
+        - name: from
+          in: query
+          required: true
+          description: Start date for the earnings calendar (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-12-24"
+        - name: to
+          in: query
+          required: true
+          description: End date for the earnings calendar (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2025-03-24"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "KEC.NS"
+                    date:
+                      type: string
+                      format: date
+                      example: "2024-11-04"
+                    eps:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: 4.39
+                    epsEstimated:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: 4.97
+                    revenueActual:
+                      type: number # Allowing float for flexibility despite integer example
+                      format: float
+                      nullable: true
+                      example: 51133100000
+                    revenueEstimated:
+                      type: number # Allowing float for flexibility despite integer example
+                      format: float
+                      nullable: true
+                      example: 44687400000
+                    lastUpdated:
+                      type: string
+                      format: date-time # Assuming date-time based on name, example is date
+                      example: "2024-12-08"
+  /stable/profile/{symbol}:
+    get:
+      summary: Company Information API
+      description: Get detailed profile information for a specific company using its stock symbol. Access data like price, market cap, industry, description, and more.
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array # Response is an array containing one object
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    price:
+                      type: number
+                      format: float
+                      example: 197.57
+                    beta:
+                      type: number
+                      format: float
+                      example: 1.288
+                    volAvg:
+                      type: integer
+                      example: 61881888
+                    mktCap:
+                      type: number # Use number for large integers
+                      example: 3050517207040
+                    lastDiv:
+                      type: number
+                      format: float
+                      example: 0.96
+                    range:
+                      type: string
+                      example: "164.08-199.62"
+                    changes:
+                      type: number
+                      format: float
+                      example: 0.85
+                    companyName:
+                      type: string
+                      example: "Apple Inc."
+                    currency:
+                      type: string
+                      example: "USD"
+                    cik:
+                      type: string
+                      example: "0000320193"
+                    isin:
+                      type: string
+                      example: "US0378331005"
+                    cusip:
+                      type: string
+                      example: "037833100"
+                    exchange:
+                      type: string
+                      example: "NASDAQ Global Select"
+                    exchangeShortName:
+                      type: string
+                      example: "NASDAQ"
+                    industry:
+                      type: string
+                      example: "Consumer Electronics"
+                    website:
+                      type: string
+                      format: url
+                      example: "https://www.apple.com"
+                    description:
+                      type: string
+                      example: "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide..." # Truncated for brevity
+                    ceo:
+                      type: string
+                      example: "Mr. Timothy D. Cook"
+                    sector:
+                      type: string
+                      example: "Technology"
+                    country:
+                      type: string
+                      example: "US"
+                    fullTimeEmployees:
+                      type: string # Use string as example has comma
+                      example: "161000"
+                    phone:
+                      type: string
+                      example: "408 996 1010"
+                    address:
+                      type: string
+                      example: "One Apple Park Way"
+                    city:
+                      type: string
+                      example: "Cupertino"
+                    state:
+                      type: string
+                      example: "CA"
+                    zip:
+                      type: string
+                      example: "95014"
+                    dcfDiff:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null # Example shows null, adjust if needed
+                    dcf:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null # Example shows null, adjust if needed
+                    image:
+                      type: string
+                      format: url
+                      example: "https://financialmodelingprep.com/image-stock/AAPL.png"
+                    ipoDate:
+                      type: string
+                      format: date
+                      example: "1980-12-12"
+                    defaultImage:
+                      type: boolean
+                      example: false
+                    isEtf:
+                      type: boolean
+                      example: false
+                    isActivelyTrading:
+                      type: boolean
+                      example: true
+                    isAdr:
+                      type: boolean
+                      example: false
+                    isFund:
+                      type: boolean
+                      example: false
+  /stable/search-ticker:
+    get:
+      summary: Company Search by Ticker API
+      description: Search for company stock tickers based on a query string. Useful for finding stock symbols when you know part of the company name or ticker.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search query string (e.g., part of ticker or company name)
+          schema:
+            type: string
+          example: "AA"
+        - name: limit
+          in: query
+          required: false
+          description: Limit the number of search results
+          schema:
+            type: integer
+          example: 10
+        - name: exchange
+          in: query
+          required: false
+          description: Filter by stock exchange (e.g., NASDAQ, NYSE)
+          schema:
+            type: string
+          example: "NASDAQ"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    name:
+                      type: string
+                      example: "Apple Inc."
+                    currency:
+                      type: string
+                      example: "USD"
+                    stockExchange:
+                      type: string
+                      example: "NasdaqGS"
+                    exchangeShortName:
+                      type: string
+                      example: "NASDAQ"
+  /stable/earnings-transcript-list:
+    get:
+      summary: Earnings Transcript List API
+      description: Access available earnings transcripts for companies with the FMP Earnings Transcript List API. Retrieve a list of companies with earnings transcripts, along with the total number of transcripts available for each company.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "MCURF"
+                    companyName:
+                      type: string
+                      example: "Medicure Inc."
+                    noOfTranscripts:
+                      type: string # Example shows string "16"
+                      example: "16"
+  /stable/available-exchanges:
+    get:
+      summary: Available Exchanges API
+      description: Access a complete list of supported stock exchanges using the FMP Available Exchanges API. This API provides a comprehensive overview of global stock exchanges, allowing users to identify where securities are traded and filter data by specific exchanges for further analysis.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    exchange:
+                      type: string
+                      example: "AMEX"
+  /stable/available-sectors:
+    get:
+      summary: Available Sectors API
+      description: Access a complete list of industry sectors using the FMP Available Sectors API. This API helps users categorize and filter companies based on their respective sectors, enabling deeper analysis and more focused queries across different industries.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sector:
+                      type: string
+                      example: "Basic Materials"
+  /stable/available-industries:
+    get:
+      summary: Available Industries API
+      description: Access a comprehensive list of industries where stock symbols are available using the FMP Available Industries API. This API helps users filter and categorize companies based on their industry for more focused research and analysis.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    industry:
+                      type: string
+                      example: "Steel"
+  /stable/available-countries:
+    get:
+      summary: Available Countries API
+      description: Access a comprehensive list of countries where stock symbols are available with the FMP Available Countries API. This API enables users to filter and analyze stock symbols based on the country of origin or the primary market where the securities are traded.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                      example: "FK"
+  /stable/analyst-estimates:
+    get:
+      summary: Financial Estimates API
+      description: Retrieve analyst financial estimates for stock symbols with the FMP Financial Estimates API. Access projected figures like revenue, earnings per share (EPS), and other key financial metrics as forecasted by industry analysts to inform your investment decisions.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: period
+          in: query
+          required: false
+          description: Period of estimates (e.g., annual, quarter)
+          schema:
+            type: string
+          example: "annual,quarter"
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination
+          schema:
+            type: number
+          example: 0
+        - name: limit
+          in: query
+          required: false
+          description: Number of results per page
+          schema:
+            type: number
+          example: 10
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      example: "2029-09-28"
+                    revenueLow:
+                      type: number
+                      example: 483092500000
+                    revenueHigh:
+                      type: number
+                      example: 483093500000
+                    revenueAvg:
+                      type: number
+                      example: 483093000000
+                    ebitdaLow:
+                      type: number
+                      example: 155952166036
+                    ebitdaHigh:
+                      type: number
+                      example: 155952488856
+                    ebitdaAvg:
+                      type: number
+                      example: 155952327446
+                    ebitLow:
+                      type: number
+                      example: 140628295747
+                    ebitHigh:
+                      type: number
+                      example: 140628368847
+                    ebitAvg:
+                      type: number
+                      example: 140628441297
+                    netIncomeLow:
+                      type: number
+                      example: 139446057701
+                    netIncomeHigh:
+                      type: number
+                      example: 157165372990
+                    netIncomeAvg:
+                      type: number
+                      example: 149150359609
+                    sgaExpense:
+                      type: number
+                      example: 26312305690
+                    eps:
+                      type: number
+                      format: float
+                      example: 9.122
+                    numberAnalystEstimated:
+                      type: integer
+                      example: 2
+                    estimatedChangePercent:
+                      type: number
+                      format: float
+                      example: 0.22
+  /stable/ratings-snapshot:
+    get:
+      summary: Ratings Snapshot API
+      description: Quickly assess the financial health and performance of companies with the FMP Ratings Snapshot API. This API provides a comprehensive snapshot of financial ratings for stock symbols in our database, based on various key financial ratios.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: limit
+          in: query
+          required: false
+          description: Number of results
+          schema:
+            type: number
+          example: 1
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    rating:
+                      type: string
+                      example: "A+"
+                    overallScore:
+                      type: integer
+                      example: 4
+                    discountedCashFlowScore:
+                      type: integer
+                      example: 3
+                    returnOnEquityScore:
+                      type: integer
+                      example: 5
+                    returnOnAssetsScore:
+                      type: integer
+                      example: 5
+                    debtToEquityScore:
+                      type: integer
+                      example: 4
+                    priceToEarningsScore:
+                      type: integer
+                      example: 2
+                    priceToBookScore:
+                      type: integer
+                      example: 1
+  /stable/price-target-summary:
+    get:
+      summary: Price Target Summary API
+      description: Gain insights into analysts' expectations for stock prices with the FMP Price Target Summary API. This API provides access to average price targets from analysts across various timeframes, helping investors assess future stock performance based on expert opinions.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return
+          schema:
+            type: number
+          example: 10
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination
+          schema:
+            type: number
+          example: 0
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    lastMonthCount:
+                      type: integer
+                      example: 1
+                    lastMonthAvgPriceTarget:
+                      type: number
+                      format: float
+                      example: 200.75
+                    lastQuarterCount:
+                      type: integer
+                      example: 3
+                    lastQuarterAvgPriceTarget:
+                      type: number
+                      format: float
+                      example: 204.2
+                    lastYearCount:
+                      type: integer
+                      example: 48
+                    lastYearAvgPriceTarget:
+                      type: number
+                      format: float
+                      example: 232.99
+                    allTimeCount:
+                      type: integer
+                      example: 167
+                    allTimeAvgPriceTarget:
+                      type: number
+                      format: float
+                      example: 201.21
+                    publishers:
+                      type: array
+                      items:
+                        type: string
+                      example:
+                        [
+                          "Benzinga",
+                          "StreetInsider",
+                          "TheFly",
+                          "Pulse 2.0",
+                          "TipRanks Contributor",
+                          "MarketWatch",
+                          "Investing",
+                          "Barrons",
+                          "Investor's Business Daily",
+                        ]
+  /stable/price-target-consensus:
+    get:
+      summary: Price Target Consensus API
+      description: Access analysts' consensus price targets with the FMP Price Target Consensus API. This API provides high, low, median, and consensus price targets for stocks, offering investors a comprehensive view of market expectations for future stock prices.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return
+          schema:
+            type: number
+          example: 10
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination
+          schema:
+            type: number
+          example: 0
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    targetHigh:
+                      type: number
+                      format: float
+                      example: 300
+                    targetLow:
+                      type: number
+                      format: float
+                      example: 200
+                    targetConsensus:
+                      type: number
+                      format: float
+                      example: 251.7
+                    targetMedian:
+                      type: number
+                      format: float
+                      example: 258
+  /stable/historical-market-capitalization:
+    get:
+      summary: Historical Market Cap API
+      description: Access historical market capitalization data for a company using the FMP Historical Market Capitalization API. This API helps track the changes in market value over time, enabling long-term assessments of a company's growth or decline.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return
+          schema:
+            type: number
+          example: 100
+        - name: from
+          in: query
+          required: false
+          description: Start date for historical data (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-01-01"
+        - name: to
+          in: query
+          required: false
+          description: End date for historical data (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-03-01"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date
+                      example: "2024-02-29"
+                    marketCap:
+                      type: number
+                      example: 2784608472000
+  /stable/shares-float:
+    get:
+      summary: Company Share Float & Liquidity API
+      description: Understand the liquidity and volatility of a stock with the FMP Company Share Float and Liquidity API. Access the total number of publicly traded shares for any company to make informed investment decisions.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date-time
+                      example: "2025-02-04 17:01:35"
+                    freeFloat:
+                      type: number
+                      format: float
+                      example: 99.9095
+                    floatShares:
+                      type: number
+                      example: 15024290700
+                    outstandingShares:
+                      type: number
+                      example: 15037900000
+  /stable/shares-float-all:
+    get:
+      summary: All Shares Float API
+      description: Access comprehensive shares float data for all available companies with the FMP All Shares Float API. Retrieve critical information such as free float, float shares, and outstanding shares to analyze liquidity across a wide range of companies.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "6898.HK"
+                    date:
+                      type: string
+                      format: date-time
+                      example: "2025-02-04 17:27:01"
+                    freeFloat:
+                      type: number
+                      format: float
+                      example: 33.2536
+                    floatShares:
+                      type: number
+                      example: 318128880
+                    outstandingShares:
+                      type: number
+                      example: 956675009
+  /stable/discounted-cash-flow:
+    get:
+      summary: DCF Valuation API
+      description: Estimate the intrinsic value of a company with the FMP Discounted Cash Flow Valuation API. Calculate the DCF valuation based on expected future cash flows and discount rates.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date
+                      example: "2025-02-04"
+                    dcf:
+                      type: number
+                      format: float
+                      example: 147.26698831908461
+                    "Stock Price":
+                      type: number
+                      format: float
+                      example: 231.795
+  /stable/levered-discounted-cash-flow:
+    get:
+      summary: Levered DCF API
+      description: Analyze a company's value with the FMP Levered Discounted Cash Flow (DCF) API, which incorporates the impact of debt. This API provides post-debt company valuation, offering investors a more accurate measure of a company's true worth by accounting for its debt obligations.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: limit
+          in: query
+          required: false
+          description: Number of results to return
+          schema:
+            type: number
+          example: 100
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date
+                      example: "2025-02-04"
+                    dcf:
+                      type: number
+                      format: float
+                      example: 147.26698831908461
+                    "Stock Price":
+                      type: number
+                      format: float
+                      example: 231.795
+  /stable/custom-discounted-cash-flow:
+    get:
+      summary: Custom Discounted Cash Flow API
+      description: Calculate a custom DCF valuation for a company with user-defined parameters. This API allows investors to customize growth rates, financial ratios, and valuation inputs to create tailored company valuations.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: revenueGrowthPct
+          in: query
+          required: false
+          description: Revenue growth percentage
+          schema:
+            type: number
+          example: 0.1094119804597946
+        - name: ebitdaPct
+          in: query
+          required: false
+          description: EBITDA percentage
+          schema:
+            type: number
+          example: 0.31273548388
+        - name: depreciationAndAmortizationPct
+          in: query
+          required: false
+          description: Depreciation and amortization percentage
+          schema:
+            type: number
+          example: 0.0345531631720999
+        - name: cashAndShortTermInvestmentsPct
+          in: query
+          required: false
+          description: Cash and short-term investments percentage
+          schema:
+            type: number
+          example: 0.2344222126801843
+        - name: receivablesPct
+          in: query
+          required: false
+          description: Receivables percentage
+          schema:
+            type: number
+          example: 0.1533770531229388
+        - name: inventoriesPct
+          in: query
+          required: false
+          description: Inventories percentage
+          schema:
+            type: number
+          example: 0.0155245674227653
+        - name: payablePct
+          in: query
+          required: false
+          description: Payable percentage
+          schema:
+            type: number
+          example: 0.1614868903169657
+        - name: ebitPct
+          in: query
+          required: false
+          description: EBIT percentage
+          schema:
+            type: number
+          example: 0.2781823207138459
+        - name: capitalExpenditurePct
+          in: query
+          required: false
+          description: Capital expenditure percentage
+          schema:
+            type: number
+          example: 0.0306025847141713
+        - name: operatingCashFlowPct
+          in: query
+          required: false
+          description: Operating cash flow percentage
+          schema:
+            type: number
+          example: 0.2886333485760204
+        - name: sellingGeneralAndAdministrativeExpensesPct
+          in: query
+          required: false
+          description: Selling, general, and administrative expenses percentage
+          schema:
+            type: number
+          example: 0.0662854095187211
+        - name: taxRate
+          in: query
+          required: false
+          description: Tax rate
+          schema:
+            type: number
+          example: 0.14919579658453103
+        - name: longTermGrowthRate
+          in: query
+          required: false
+          description: Long-term growth rate
+          schema:
+            type: number
+          example: 4
+        - name: costOfDebt
+          in: query
+          required: false
+          description: Cost of debt
+          schema:
+            type: number
+          example: 3.64
+        - name: costOfEquity
+          in: query
+          required: false
+          description: Cost of equity
+          schema:
+            type: number
+          example: 9.51168
+        - name: marketRiskPremium
+          in: query
+          required: false
+          description: Market risk premium
+          schema:
+            type: number
+          example: 4.72
+        - name: beta
+          in: query
+          required: false
+          description: Beta value
+          schema:
+            type: number
+          example: 1.244
+        - name: riskFreeRate
+          in: query
+          required: false
+          description: Risk-free rate
+          schema:
+            type: number
+          example: 3.64
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    year:
+                      type: string
+                      example: "2029"
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    revenue:
+                      type: number
+                      example: 657173266965
+                    revenuePercentage:
+                      type: number
+                      format: float
+                      example: 10.94
+                    ebitda:
+                      type: number
+                      example: 205521399637
+                    ebitdaPercentage:
+                      type: number
+                      format: float
+                      example: 31.27
+                    ebit:
+                      type: number
+                      example: 182813984515
+                    ebitPercentage:
+                      type: number
+                      format: float
+                      example: 27.82
+                    depreciation:
+                      type: number
+                      example: 22707415125
+                    depreciationPercentage:
+                      type: number
+                      format: float
+                      example: 3.46
+                    totalCash:
+                      type: number
+                      example: 154056011356
+                    totalCashPercentage:
+                      type: number
+                      format: float
+                      example: 23.44
+                    receivables:
+                      type: number
+                      example: 100795299078
+                    receivablesPercentage:
+                      type: number
+                      format: float
+                      example: 15.34
+                    inventories:
+                      type: number
+                      example: 10202330691
+                    inventoriesPercentage:
+                      type: number
+                      format: float
+                      example: 1.55
+                    payable:
+                      type: number
+                      example: 106124867281
+                    payablePercentage:
+                      type: number
+                      format: float
+                      example: 16.15
+                    capitalExpenditure:
+                      type: number
+                      example: 20111200574
+                    capitalExpenditurePercentage:
+                      type: number
+                      format: float
+                      example: 3.06
+                    price:
+                      type: number
+                      format: float
+                      example: 232.8
+                    beta:
+                      type: number
+                      format: float
+                      example: 1.244
+                    dilutedSharesOutstanding:
+                      type: number
+                      example: 15408095000
+                    costofDebt:
+                      type: number
+                      format: float
+                      example: 3.64
+                    taxRate:
+                      type: number
+                      format: float
+                      example: 24.09
+                    afterTaxCostOfDebt:
+                      type: number
+                      format: float
+                      example: 2.76
+                    riskFreeRate:
+                      type: number
+                      format: float
+                      example: 3.64
+                    marketRiskPremium:
+                      type: number
+                      format: float
+                      example: 4.72
+                    costOfEquity:
+                      type: number
+                      format: float
+                      example: 9.51
+                    totalDebt:
+                      type: number
+                      example: 106629000000
+                    totalEquity:
+                      type: number
+                      example: 3587004516000
+                    totalCapital:
+                      type: number
+                      example: 3693633516000
+                    debtWeighting:
+                      type: number
+                      format: float
+                      example: 2.89
+                    equityWeighting:
+                      type: number
+                      format: float
+                      example: 97.11
+                    wacc:
+                      type: number
+                      format: float
+                      example: 9.33
+                    taxRateCash:
+                      type: number
+                      example: 14919580
+                    ebiat:
+                      type: number
+                      example: 155538906468
+                    ufcf:
+                      type: number
+                      example: 197876962552
+                    sumPvUfcf:
+                      type: number
+                      example: 616840860880
+                    longTermGrowthRate:
+                      type: number
+                      format: float
+                      example: 4
+                    terminalValue:
+                      type: number
+                      example: 3863553224578
+                    presentTerminalValue:
+                      type: number
+                      example: 2473772391290
+                    enterpriseValue:
+                      type: number
+                      example: 3090613252170
+                    netDebt:
+                      type: number
+                      example: 76686000000
+                    equityValue:
+                      type: number
+                      example: 3013927252170
+                    equityValuePerShare:
+                      type: number
+                      format: float
+                      example: 195.61
+                    freeCashFlowT1:
+                      type: number
+                      example: 205792041054
+  /stable/treasury-rates:
+    get:
+      summary: Treasury Rates API
+      description: Access real-time and historical Treasury rates for all maturities with the FMP Treasury Rates API. Track key benchmarks for interest rates across the economy.
+      parameters:
+        - name: from
+          in: query
+          required: false
+          description: Start date for historical data (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-01-01"
+        - name: to
+          in: query
+          required: false
+          description: End date for historical data (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-03-01"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                      example: "2024-02-29"
+                    month1:
+                      type: number
+                      format: float
+                      example: 5.53
+                    month2:
+                      type: number
+                      format: float
+                      example: 5.5
+                    month3:
+                      type: number
+                      format: float
+                      example: 5.45
+                    month6:
+                      type: number
+                      format: float
+                      example: 5.3
+                    year1:
+                      type: number
+                      format: float
+                      example: 5.01
+                    year2:
+                      type: number
+                      format: float
+                      example: 4.64
+                    year3:
+                      type: number
+                      format: float
+                      example: 4.43
+                    year5:
+                      type: number
+                      format: float
+                      example: 4.26
+                    year7:
+                      type: number
+                      format: float
+                      example: 4.28
+                    year10:
+                      type: number
+                      format: float
+                      example: 4.25
+                    year20:
+                      type: number
+                      format: float
+                      example: 4.51
+                    year30:
+                      type: number
+                      format: float
+                      example: 4.38
+  /stable/economic-indicators:
+    get:
+      summary: Economics Indicators API
+      description: Access real-time and historical economic data for key indicators like GDP, unemployment, and inflation with the FMP Economic Indicators API. Use this data to measure economic performance and identify growth trends.
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Name of the economic indicator
+          schema:
+            type: string
+          example: "GDP"
+        - name: from
+          in: query
+          required: false
+          description: Start date for historical data (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-01-01"
+        - name: to
+          in: query
+          required: false
+          description: End date for historical data (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-03-01"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "GDP"
+                    date:
+                      type: string
+                      format: date
+                      example: "2024-01-01"
+                    value:
+                      type: number
+                      format: float
+                      example: 28624.069
+  /stable/economic-calendar:
+    get:
+      summary: Economic Data Releases Calendar API
+      description: Stay informed with the FMP Economic Data Releases Calendar API. Access a comprehensive calendar of upcoming economic data releases to prepare for market impacts and make informed investment decisions.
+      parameters:
+        - name: from
+          in: query
+          required: false
+          description: Start date for calendar events (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-01-01"
+        - name: to
+          in: query
+          required: false
+          description: End date for calendar events (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+          example: "2024-03-01"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date-time
+                      example: "2024-03-01 03:35:00"
+                    country:
+                      type: string
+                      example: "JP"
+                    event:
+                      type: string
+                      example: "3-Month Bill Auction"
+                    currency:
+                      type: string
+                      example: "JPY"
+                    previous:
+                      type: number
+                      format: float
+                      example: -0.112
+                    estimate:
+                      type: number
+                      format: float
+                      nullable: true
+                      example: null
+                    actual:
+                      type: number
+                      format: float
+                      example: -0.096
+                    change:
+                      type: number
+                      format: float
+                      example: 0.016
+                    impact:
+                      type: string
+                      example: "Low"
+                    changePercentage:
+                      type: number
+                      format: float
+                      example: 14.286
+  /stable/market-risk-premium:
+    get:
+      summary: Market Risk Premium API
+      description: Access the market risk premium for specific dates with the FMP Market Risk Premium API. Use this key financial metric to assess the additional return expected from investing in the stock market over a risk-free investment.
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                      example: "Zimbabwe"
+                    continent:
+                      type: string
+                      example: "Africa"
+                    countryRiskPremium:
+                      type: number
+                      format: float
+                      example: 13.17
+                    totalEquityRiskPremium:
+                      type: number
+                      format: float
+                      example: 17.77
+  /stable/quote-short:
+    get:
+      summary: Commodities Quote Short API
+      description: Get fast and accurate quotes for commodities with the FMP Commodities Quick Quote API. Instantly access the current price, recent changes, and trading volume for various commodities in real-time.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Commodity symbol (e.g., GCUSD for Gold)
+          schema:
+            type: string
+          example: "GCUSD"
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "GCUSD"
+                    price:
+                      type: number
+                      format: float
+                      example: 2872.2
+                    change:
+                      type: number
+                      format: float
+                      example: -3.6
+                    volume:
+                      type: integer
+                      example: 1989
+  /stable/batch-commodity-quotes:
+    get:
+      summary: Real-Time Batch Commodities Quotes API
+      description: Access real-time quotes for multiple commodities at once with the FMP Real-Time Batch Commodities Quotes API. Instantly track price changes, volume, and other key metrics for a broad range of commodities.
+      parameters:
+        - name: short
+          in: query
+          required: false
+          description: Whether to return shortened quote data
+          schema:
+            type: boolean
+          example: true
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "DCUSD"
+                    price:
+                      type: number
+                      format: float
+                      example: 19.89
+                    change:
+                      type: number
+                      format: float
+                      example: 0.23
+                    volume:
+                      type: integer
+                      example: 442
+  /stable/income-statement:
+    get:
+      summary: Real-Time Income Statement API
+      description: Access real-time income statement data for public companies, private companies, and ETFs with the FMP Real-Time Income Statements API. Track profitability, compare competitors, and identify business trends with up-to-date financial data.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: period
+          in: query
+          required: false
+          description: Financial reporting period (annual or quarter)
+          schema:
+            type: string
+            enum: ["annual", "quarter"]
+          example: "annual"
+        - name: limit
+          in: query
+          required: false
+          description: Number of statements to return
+          schema:
+            type: integer
+          example: 5
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                      example: "2023-09-30"
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    reportedCurrency:
+                      type: string
+                      example: "USD"
+                    cik:
+                      type: string
+                      example: "0000320193"
+                    fillingDate:
+                      type: string
+                      format: date
+                      example: "2023-11-03"
+                    acceptedDate:
+                      type: string
+                      format: date-time
+                      example: "2023-11-02 18:11:28"
+                    calendarYear:
+                      type: string
+                      example: "2023"
+                    period:
+                      type: string
+                      example: "FY"
+                    revenue:
+                      type: number
+                      example: 383293000000
+                    costOfRevenue:
+                      type: number
+                      example: 212235000000
+                    grossProfit:
+                      type: number
+                      example: 171058000000
+                    grossProfitRatio:
+                      type: number
+                      format: float
+                      example: 0.4462837211
+                    researchAndDevelopmentExpenses:
+                      type: number
+                      example: 29915000000
+                    generalAndAdministrativeExpenses:
+                      type: number
+                      example: 25935000000
+                    sellingAndMarketingExpenses:
+                      type: number
+                      example: 0
+                    sellingGeneralAndAdministrativeExpenses:
+                      type: number
+                      example: 25935000000
+                    otherExpenses:
+                      type: number
+                      example: 0
+                    operatingExpenses:
+                      type: number
+                      example: 55850000000
+                    costAndExpenses:
+                      type: number
+                      example: 268085000000
+                    interestIncome:
+                      type: number
+                      example: 3811000000
+                    interestExpense:
+                      type: number
+                      example: 3882000000
+                    depreciationAndAmortization:
+                      type: number
+                      example: 11972000000
+                    ebitda:
+                      type: number
+                      example: 130889000000
+                    ebitdaratio:
+                      type: number
+                      format: float
+                      example: 0.3414844991
+                    operatingIncome:
+                      type: number
+                      example: 115208000000
+                    operatingIncomeRatio:
+                      type: number
+                      format: float
+                      example: 0.3005998364
+                    totalOtherIncomeExpensesNet:
+                      type: number
+                      example: 71000000
+                    incomeBeforeTax:
+                      type: number
+                      example: 115279000000
+                    incomeBeforeTaxRatio:
+                      type: number
+                      format: float
+                      example: 0.3007614421
+                    incomeTaxExpense:
+                      type: number
+                      example: 19300000000
+                    netIncome:
+                      type: number
+                      example: 96995000000
+                    netIncomeRatio:
+                      type: number
+                      format: float
+                      example: 0.2530845563
+                    eps:
+                      type: number
+                      format: float
+                      example: 6.14
+                    epsdiluted:
+                      type: number
+                      format: float
+                      example: 6.14
+                    weightedAverageShsOut:
+                      type: number
+                      example: 15812100000
+                    weightedAverageShsOutDil:
+                      type: number
+                      example: 15812100000
+                    link:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+                    finalLink:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+  /stable/balance-sheet-statement:
+    get:
+      summary: Balance Sheet Statement API
+      description: Access real-time balance sheet data for companies with the FMP Balance Sheet Statement API. The balance sheet displays a company's total assets, liabilities, and shareholder equity, helping investors determine if the company can fund operations, meet debt obligations, and pay dividends.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: period
+          in: query
+          required: false
+          description: Financial reporting period (annual or quarter)
+          schema:
+            type: string
+            enum: ["annual", "quarter"]
+          example: "annual"
+        - name: limit
+          in: query
+          required: false
+          description: Number of statements to return
+          schema:
+            type: integer
+          example: 5
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                      example: "2023-09-30"
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    reportedCurrency:
+                      type: string
+                      example: "USD"
+                    cik:
+                      type: string
+                      example: "0000320193"
+                    fillingDate:
+                      type: string
+                      format: date
+                      example: "2023-11-03"
+                    acceptedDate:
+                      type: string
+                      format: date-time
+                      example: "2023-11-02 18:11:28"
+                    calendarYear:
+                      type: string
+                      example: "2023"
+                    period:
+                      type: string
+                      example: "FY"
+                    cashAndCashEquivalents:
+                      type: number
+                      example: 29965000000
+                    shortTermInvestments:
+                      type: number
+                      example: 31590000000
+                    cashAndShortTermInvestments:
+                      type: number
+                      example: 61555000000
+                    netReceivables:
+                      type: number
+                      example: 60932000000
+                    inventory:
+                      type: number
+                      example: 6331000000
+                    otherCurrentAssets:
+                      type: number
+                      example: 15340000000
+                    totalCurrentAssets:
+                      type: number
+                      example: 144158000000
+                    propertyPlantEquipmentNet:
+                      type: number
+                      example: 42401000000
+                    goodwill:
+                      type: number
+                      example: 0
+                    intangibleAssets:
+                      type: number
+                      example: 0
+                    goodwillAndIntangibleAssets:
+                      type: number
+                      example: 0
+                    longTermInvestments:
+                      type: number
+                      example: 100544000000
+                    taxAssets:
+                      type: number
+                      example: 0
+                    otherNonCurrentAssets:
+                      type: number
+                      example: 54428000000
+                    totalNonCurrentAssets:
+                      type: number
+                      example: 197373000000
+                    otherAssets:
+                      type: number
+                      example: 0
+                    totalAssets:
+                      type: number
+                      example: 352531000000
+                    accountPayables:
+                      type: number
+                      example: 62611000000
+                    shortTermDebt:
+                      type: number
+                      example: 21243000000
+                    taxPayables:
+                      type: number
+                      example: 0
+                    deferredRevenue:
+                      type: number
+                      example: 8061000000
+                    otherCurrentLiabilities:
+                      type: number
+                      example: 50570000000
+                    totalCurrentLiabilities:
+                      type: number
+                      example: 142424000000
+                    longTermDebt:
+                      type: number
+                      example: 95281000000
+                    deferredRevenueNonCurrent:
+                      type: number
+                      example: 0
+                    deferredTaxLiabilitiesNonCurrent:
+                      type: number
+                      example: 0
+                    otherNonCurrentLiabilities:
+                      type: number
+                      example: 49848000000
+                    totalNonCurrentLiabilities:
+                      type: number
+                      example: 145129000000
+                    otherLiabilities:
+                      type: number
+                      example: 0
+                    capitalLeaseObligations:
+                      type: number
+                      example: 0
+                    totalLiabilities:
+                      type: number
+                      example: 287553000000
+                    preferredStock:
+                      type: number
+                      example: 0
+                    commonStock:
+                      type: number
+                      example: 73812000000
+                    retainedEarnings:
+                      type: number
+                      example: 0
+                    accumulatedOtherComprehensiveIncomeLoss:
+                      type: number
+                      example: -8084000000
+                    othertotalStockholdersEquity:
+                      type: number
+                      example: -750000000
+                    totalStockholdersEquity:
+                      type: number
+                      example: 64978000000
+                    totalEquity:
+                      type: number
+                      example: 64978000000
+                    totalLiabilitiesAndStockholdersEquity:
+                      type: number
+                      example: 352531000000
+                    minorityInterest:
+                      type: number
+                      example: 0
+                    totalLiabilitiesAndTotalEquity:
+                      type: number
+                      example: 352531000000
+                    totalInvestments:
+                      type: number
+                      example: 132134000000
+                    totalDebt:
+                      type: number
+                      example: 116524000000
+                    netDebt:
+                      type: number
+                      example: 86559000000
+                    link:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+                    finalLink:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+  /stable/cash-flow-statement:
+    get:
+      summary: Cash Flow Statement API
+      description: Access detailed information about a company's cash flow, showing how cash is generated and used through operating, investing, and financing activities. This API helps investors evaluate a company's ability to generate cash, manage resources, and analyze financial flexibility through free cash flow.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: period
+          in: query
+          required: false
+          description: Financial reporting period (annual or quarter)
+          schema:
+            type: string
+            enum: ["annual", "quarter"]
+          example: "annual"
+        - name: limit
+          in: query
+          required: false
+          description: Number of statements to return
+          schema:
+            type: integer
+          example: 5
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                      example: "2023-09-30"
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    reportedCurrency:
+                      type: string
+                      example: "USD"
+                    cik:
+                      type: string
+                      example: "0000320193"
+                    fillingDate:
+                      type: string
+                      format: date
+                      example: "2023-11-03"
+                    acceptedDate:
+                      type: string
+                      format: date-time
+                      example: "2023-11-02 18:11:28"
+                    calendarYear:
+                      type: string
+                      example: "2023"
+                    period:
+                      type: string
+                      example: "FY"
+                    netIncome:
+                      type: number
+                      example: 96995000000
+                    depreciationAndAmortization:
+                      type: number
+                      example: 11284000000
+                    deferredIncomeTax:
+                      type: number
+                      example: -6527000000
+                    stockBasedCompensation:
+                      type: number
+                      example: 9194000000
+                    changeInWorkingCapital:
+                      type: number
+                      example: 14546000000
+                    accountsReceivables:
+                      type: number
+                      example: -10098000000
+                    inventory:
+                      type: number
+                      example: 828000000
+                    accountsPayables:
+                      type: number
+                      example: 9033000000
+                    otherWorkingCapital:
+                      type: number
+                      example: 14783000000
+                    otherNonCashItems:
+                      type: number
+                      example: 1537000000
+                    netCashProvidedByOperatingActivities:
+                      type: number
+                      example: 113758000000
+                    investmentsInPropertyPlantAndEquipment:
+                      type: number
+                      example: -10276000000
+                    acquisitionsNet:
+                      type: number
+                      example: -381000000
+                    purchasesOfInvestments:
+                      type: number
+                      example: -158135000000
+                    salesMaturitiesOfInvestments:
+                      type: number
+                      example: 109112000000
+                    otherInvestingActivities:
+                      type: number
+                      example: 91000000
+                    netCashUsedForInvestingActivites:
+                      type: number
+                      example: -59589000000
+                    debtRepayment:
+                      type: number
+                      example: -12473000000
+                    commonStockIssued:
+                      type: number
+                      example: 0
+                    commonStockRepurchased:
+                      type: number
+                      example: -77550000000
+                    dividendsPaid:
+                      type: number
+                      example: -14772000000
+                    otherFinancingActivities:
+                      type: number
+                      example: 3305000000
+                    netCashUsedProvidedByFinancingActivities:
+                      type: number
+                      example: -101490000000
+                    effectOfForexChangesOnCash:
+                      type: number
+                      example: 1065000000
+                    netChangeInCash:
+                      type: number
+                      example: -46256000000
+                    cashAtEndOfPeriod:
+                      type: number
+                      example: 29965000000
+                    cashAtBeginningOfPeriod:
+                      type: number
+                      example: 29965000000
+                    operatingCashFlow:
+                      type: number
+                      example: 113758000000
+                    capitalExpenditure:
+                      type: number
+                      example: -10276000000
+                    freeCashFlow:
+                      type: number
+                      example: 103482000000
+                    link:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+                    finalLink:
+                      type: string
+                      example: "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+  /stable/key-metrics:
+    get:
+      summary: Key Metrics API
+      description: Access essential financial metrics for a company with this API. Evaluate revenue, net income, P/E ratio, and other key performance indicators (KPIs) to assess a company's financial performance and compare it to competitors.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: period
+          in: query
+          required: false
+          description: Financial reporting period (annual or quarter)
+          schema:
+            type: string
+            enum: ["annual", "quarter"]
+          example: "annual"
+        - name: limit
+          in: query
+          required: false
+          description: Number of periods to return
+          schema:
+            type: integer
+          example: 5
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date
+                      example: "2023-09-30"
+                    calendarYear:
+                      type: string
+                      example: "2023"
+                    period:
+                      type: string
+                      example: "FY"
+                    revenuePerShare:
+                      type: number
+                      example: 24.08
+                    netIncomePerShare:
+                      type: number
+                      example: 6.13
+                    operatingCashFlowPerShare:
+                      type: number
+                      example: 7.19
+                    freeCashFlowPerShare:
+                      type: number
+                      example: 6.54
+                    cashPerShare:
+                      type: number
+                      example: 1.89
+                    bookValuePerShare:
+                      type: number
+                      example: 4.11
+                    tangibleBookValuePerShare:
+                      type: number
+                      example: 4.11
+                    shareholdersEquityPerShare:
+                      type: number
+                      example: 4.11
+                    interestDebtPerShare:
+                      type: number
+                      example: 7.37
+                    marketCap:
+                      type: number
+                      example: 2918082009600
+                    enterpriseValue:
+                      type: number
+                      example: 3004641009600
+                    peRatio:
+                      type: number
+                      example: 30.01
+                    priceToSalesRatio:
+                      type: number
+                      example: 7.68
+                    pocfratio:
+                      type: number
+                      example: 25.52
+                    pfcfRatio:
+                      type: number
+                      example: 28.08
+                    pbRatio:
+                      type: number
+                      example: 44.89
+                    ptbRatio:
+                      type: number
+                      example: 44.89
+                    evToSales:
+                      type: number
+                      example: 7.91
+                    enterpriseValueOverEBITDA:
+                      type: number
+                      example: 24.51
+                    evToOperatingCashFlow:
+                      type: number
+                      example: 26.46
+                    evToFreeCashFlow:
+                      type: number
+                      example: 29.04
+                    earningsYield:
+                      type: number
+                      example: 0.033
+                    freeCashFlowYield:
+                      type: number
+                      example: 0.036
+                    debtToEquity:
+                      type: number
+                      example: 1.79
+                    debtToAssets:
+                      type: number
+                      example: 0.33
+                    netDebtToEBITDA:
+                      type: number
+                      example: 0.71
+                    currentRatio:
+                      type: number
+                      example: 1.01
+                    interestCoverage:
+                      type: number
+                      example: 14.07
+                    incomeQuality:
+                      type: number
+                      example: 1.17
+                    dividendYield:
+                      type: number
+                      example: 0.005
+                    payoutRatio:
+                      type: number
+                      example: 0.15
+                    salesGeneralAndAdministrativeToRevenue:
+                      type: number
+                      example: 0.00
+                    researchAndDevelopementToRevenue:
+                      type: number
+                      example: 0.07
+                    intangiblesToTotalAssets:
+                      type: number
+                      example: 0.00
+                    capexToOperatingCashFlow:
+                      type: number
+                      example: -0.09
+                    capexToRevenue:
+                      type: number
+                      example: -0.03
+                    capexToDepreciation:
+                      type: number
+                      example: -0.91
+                    stockBasedCompensationToRevenue:
+                      type: number
+                      example: 0.02
+                    grahamNumber:
+                      type: number
+                      example: 75.21
+                    roic:
+                      type: number
+                      example: 0.39
+                    returnOnTangibleAssets:
+                      type: number
+                      example: 0.28
+                    grahamNetNet:
+                      type: number
+                      example: -4.95
+                    workingCapital:
+                      type: number
+                      example: 1734000000
+                    tangibleAssetValue:
+                      type: number
+                      example: 64978000000
+                    netCurrentAssetValue:
+                      type: number
+                      example: -78266000000
+                    investedCapital:
+                      type: number
+                      example: 1.79
+                    averageReceivables:
+                      type: number
+                      example: 60932000000
+                    averagePayables:
+                      type: number
+                      example: 62611000000
+                    averageInventory:
+                      type: number
+                      example: 6331000000
+                    daysSalesOutstanding:
+                      type: number
+                      example: 58.63
+                    daysPayablesOutstanding:
+                      type: number
+                      example: 102.10
+                    daysOfInventoryOnHand:
+                      type: number
+                      example: 10.32
+                    receivablesTurnover:
+                      type: number
+                      example: 6.23
+                    payablesTurnover:
+                      type: number
+                      example: 3.57
+                    inventoryTurnover:
+                      type: number
+                      example: 35.36
+                    roe:
+                      type: number
+                      example: 1.49
+                    capexPerShare:
+                      type: number
+                      example: -0.65
+  /stable/ratios:
+    get:
+      summary: Financial Ratios API
+      description: Access comprehensive financial ratios for a company with this API. Analyze profitability, liquidity, solvency, and valuation metrics to assess overall financial health and compare it to competitors.
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Stock symbol (e.g., AAPL for Apple Inc.)
+          schema:
+            type: string
+          example: "AAPL"
+        - name: period
+          in: query
+          required: false
+          description: Financial reporting period (annual or quarter)
+          schema:
+            type: string
+            enum: ["annual", "quarter"]
+          example: "annual"
+        - name: limit
+          in: query
+          required: false
+          description: Number of periods to return
+          schema:
+            type: integer
+          example: 5
+        - name: apikey
+          in: query
+          required: true
+          description: API key for authentication
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      example: "AAPL"
+                    date:
+                      type: string
+                      format: date
+                      example: "2023-09-30"
+                    calendarYear:
+                      type: string
+                      example: "2023"
+                    period:
+                      type: string
+                      example: "FY"
+                    currentRatio:
+                      type: number
+                      format: float
+                      example: 1.01
+                    quickRatio:
+                      type: number
+                      format: float
+                      example: 0.97
+                    cashRatio:
+                      type: number
+                      format: float
+                      example: 0.21
+                    daysOfSalesOutstanding:
+                      type: number
+                      format: float
+                      example: 58.63
+                    daysOfInventoryOutstanding:
+                      type: number
+                      format: float
+                      example: 10.32
+                    operatingCycle:
+                      type: number
+                      format: float
+                      example: 68.95
+                    daysOfPayablesOutstanding:
+                      type: number
+                      format: float
+                      example: 102.10
+                    cashConversionCycle:
+                      type: number
+                      format: float
+                      example: -33.15
+                    grossProfitMargin:
+                      type: number
+                      format: float
+                      example: 0.45
+                    operatingProfitMargin:
+                      type: number
+                      format: float
+                      example: 0.30
+                    pretaxProfitMargin:
+                      type: number
+                      format: float
+                      example: 0.30
+                    netProfitMargin:
+                      type: number
+                      format: float
+                      example: 0.25
+                    effectiveTaxRate:
+                      type: number
+                      format: float
+                      example: 0.17
+                    returnOnAssets:
+                      type: number
+                      format: float
+                      example: 0.28
+                    returnOnEquity:
+                      type: number
+                      format: float
+                      example: 1.49
+                    returnOnCapitalEmployed:
+                      type: number
+                      format: float
+                      example: 0.55
+                    netIncomePerEBT:
+                      type: number
+                      format: float
+                      example: 0.84
+                    ebtPerEbit:
+                      type: number
+                      format: float
+                      example: 1.00
+                    ebitPerRevenue:
+                      type: number
+                      format: float
+                      example: 0.30
+                    debtRatio:
+                      type: number
+                      format: float
+                      example: 0.82
+                    debtEquityRatio:
+                      type: number
+                      format: float
+                      example: 4.42
+                    longTermDebtToCapitalization:
+                      type: number
+                      format: float
+                      example: 0.59
+                    totalDebtToCapitalization:
+                      type: number
+                      format: float
+                      example: 0.64
+                    interestCoverage:
+                      type: number
+                      format: float
+                      example: 29.69
+                    cashFlowToDebtRatio:
+                      type: number
+                      format: float
+                      example: 0.98
+                    companyEquityMultiplier:
+                      type: number
+                      format: float
+                      example: 5.42
+                    receivablesTurnover:
+                      type: number
+                      format: float
+                      example: 6.23
+                    payablesTurnover:
+                      type: number
+                      format: float
+                      example: 3.57
+                    inventoryTurnover:
+                      type: number
+                      format: float
+                      example: 35.36
+                    fixedAssetTurnover:
+                      type: number
+                      format: float
+                      example: 9.04
+                    assetTurnover:
+                      type: number
+                      format: float
+                      example: 1.09
+                    operatingCashFlowPerShare:
+                      type: number
+                      format: float
+                      example: 7.19
+                    freeCashFlowPerShare:
+                      type: number
+                      format: float
+                      example: 6.54
+                    cashPerShare:
+                      type: number
+                      format: float
+                      example: 1.89
+                    bookValuePerShare:
+                      type: number
+                      format: float
+                      example: 4.11
+                    tangibleBookValuePerShare:
+                      type: number
+                      format: float
+                      example: 4.11
+                    shareholdersEquityPerShare:
+                      type: number
+                      format: float
+                      example: 4.11
+                    interestDebtPerShare:
+                      type: number
+                      format: float
+                      example: 7.37
+                    marketCap:
+                      type: number
+                      example: 2918082009600
+                    enterpriseValue:
+                      type: number
+                      example: 3004641009600
+                    peRatio:
+                      type: number
+                      format: float
+                      example: 30.01
+                    priceToSalesRatio:
+                      type: number
+                      format: float
+                      example: 7.68
+                    pocfratio:
+                      type: number
+                      format: float
+                      example: 25.52
+                    pfcfRatio:
+                      type: number
+                      format: float
+                      example: 28.08
+                    pbRatio:
+                      type: number
+                      format: float
+                      example: 44.89
+                    ptbRatio:
+                      type: number
+                      format: float
+                      example: 44.89
+                    evToSales:
+                      type: number
+                      format: float
+                      example: 7.91
+                    enterpriseValueOverEBITDA:
+                      type: number
+                      format: float
+                      example: 24.51
+                    evToOperatingCashFlow:
+                      type: number
+                      format: float
+                      example: 26.46
+                    evToFreeCashFlow:
+                      type: number
+                      format: float
+                      example: 29.04
+                    earningsYield:
+                      type: number
+                      format: float
+                      example: 0.033
+                    freeCashFlowYield:
+                      type: number
+                      format: float
+                      example: 0.036
+                    debtToEquity:
+                      type: number
+                      format: float
+                      example: 1.79
+                    debtToAssets:
+                      type: number
+                      format: float
+                      example: 0.33
+                    netDebtToEBITDA:
+                      type: number
+                      format: float
+                      example: 0.71
+                    investmentValuationRatios:
+                      type: object
+                      properties:
+                        priceBookValueRatio:
+                          type: number
+                          format: float
+                          example: 44.89
+                        priceToBookRatio:
+                          type: number
+                          format: float
+                          example: 44.89
+                        priceToSalesRatio:
+                          type: number
+                          format: float
+                          example: 7.68
+                        priceEarningsRatio:
+                          type: number
+                          format: float
+                          example: 30.01
+                        receivablesTurnover:
+                          type: number
+                          format: float
+                          example: 6.23
+                        priceToFreeCashFlowsRatio:
+                          type: number
+                          format: float
+                          example: 28.08
+                        priceToOperatingCashFlowsRatio:
+                          type: number
+                          format: float
+                          example: 25.52
+                        priceCashFlowRatio:
+                          type: number
+                          format: float
+                          example: 25.52
+                        priceEarningsToGrowthRatio:
+                          type: number
+                          format: float
+                          example: 1.99
+                        priceSalesRatio:
+                          type: number
+                          format: float
+                          example: 7.68
+                        dividendYield:
+                          type: number
+                          format: float
+                          example: 0.005
+                        enterpriseValueMultiple:
+                          type: number
+                          format: float
+                          example: 24.51
+                        priceFairValue:
+                          type: number
+                          format: float
+                          example: 44.89
+                        dividendPaidAndCapexCoverageRatio:
+                          type: number
+                          format: float
+                          example: 4.55
+                    dividendPayoutRatio:
+                      type: number
+                      format: float
+                      example: 0.15
